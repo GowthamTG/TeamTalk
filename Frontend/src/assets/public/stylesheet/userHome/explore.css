@@ -1,0 +1,130 @@
+body{ 
+    margin:0;
+    padding: 0;
+    background-color: white;
+}
+
+.homeScreen{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    background-color:white;
+}
+
+.accessOptions{
+    width:50%;
+    background-color:white;
+    color:#4b53bc
+}
+
+p{
+    padding: 3em;
+}
+
+.meet-options{
+    width:80%;
+    margin: 0 auto;
+}
+
+.meet-buttons-container{
+    display:flex;
+    padding:1em;
+    justify-content: space-around;
+}
+
+.meet-input-container{
+    display:none;
+    padding:1em;
+    justify-content: center;
+}
+
+input{
+    width:70%;
+}
+
+.btn{
+    background-color: #4b53bc;
+    color:white;
+    border:1px solid white;
+}
+.btn:hover{ 
+    color:white;
+    box-shadow: 0 0 0.8333em;
+}
+
+#join{
+    display:none;
+    background-color:#4b53bc;
+    padding:0 0.5em
+}
+.homeImage{
+    width:50%;
+}
+
+.home-bottom{
+    background-color:#4b53bc;
+    color:white;
+    text-align:center;
+    padding:2.5em;
+}
+
+.heading{
+    font-weight: bold;
+    font-size:3vw;
+}
+
+.description{
+    text-align:center;
+    font-size:1.8vw;
+}
+
+@media screen and (max-width:991px){
+    .homeScreen{
+        flex-direction: column-reverse;
+    }
+    .accessOptions,.homeImage{
+        width: 100%;
+        text-align: center;
+    }
+
+    #join{
+        padding:0.3em;
+        width: 25%;
+        margin: 0 auto;
+    }
+
+    .heading{
+        font-size: 5vw;
+    }
+
+    .description{
+        font-size: 3vw;
+    }
+    
+}
+
+@media screen and (max-width:574px){
+    .meet-options{
+        width:100%
+    }
+}
+
+@media screen and (max-width:460px){
+    .meet-buttons-container{
+        display:flex;
+        flex-direction:column
+    }
+    form{
+        width:100%
+    }
+}
+
+@media screen and (max-width:310px){
+    input{
+        width:100%
+    }
+    
+    input::placeholder{
+        font-size: 5vw;
+    }
+}

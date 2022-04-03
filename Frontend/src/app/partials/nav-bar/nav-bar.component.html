@@ -1,0 +1,150 @@
+<nav
+  id="navBar"
+  class="navbar navbar-expand-lg navbar-light fixed-top"
+  style="
+    z-index: 99;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: white;
+  "
+>
+  <div class="container-fluid">
+    <div class="navbar-brand" style="display: flex">
+      <img
+        src="../../../assets/public/images/infyLogo.png"
+        class="img-fluid"
+        height="10px"
+        width="70px"
+      /><span style="color: black; margin-left: 10px"></span>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+
+        <li *ngIf="currentUser !== '' && currentUser !== null" class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/feed">Feed</a>
+        </li>
+        <!-- <% } %> <% if(currentUser !=="" && inFeedRoute==true){ %> -->
+        <li
+          *ngIf="
+            currentUser !== '' && currentUser !== null && inFeedRoute == true
+          "
+          class="nav-item"
+        >
+          <a class="nav-link active" aria-current="page" href="/feed/new"
+            >New Post</a
+          >
+        </li>
+        <!-- <% } %> <% if(currentUser=="" ){ %> -->
+        <li
+          *ngIf="currentUser === '' || currentUser === null"
+          class="nav-item dropdown"
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Explore
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="/explore">Meeting & Calling</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/meet-conversations"
+                >Chat & Collaboration</a
+              >
+            </li>
+            <li><a class="dropdown-item" href="/feed">Feed</a></li>
+          </ul>
+        </li>
+
+        <li *ngIf="currentUser !== '' && currentUser !== null" class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/explore"
+            >Meet & Call</a
+          >
+        </li>
+        <li
+          *ngIf="currentUser !== '' && currentUser !== null"
+          class="nav-item dropdown"
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="color: rgba(0, 0, 0, 0.9)"
+          >
+            Chat
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="/conversations"
+                ><i class="fas fa-people-arrows"></i> Personal Chats</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="/meet-conversations"
+                ><i class="fas fa-users"></i> Meeting Chats</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="navbar-nav ml-auto">
+        <a
+          *ngIf="currentUser === '' || currentUser === null"
+          type="button"
+          id="signin-btn"
+          class="btn"
+          href="/login"
+          >Sign In</a
+        >
+        <a
+          *ngIf="currentUser === '' || currentUser === null"
+          type="button"
+          id="signup-btn"
+          class="btn"
+          href="/register"
+          >Sign Up</a
+        >
+
+        <div
+          *ngIf="currentUser !== '' && currentUser !== null"
+          class="nav-link"
+          style="color: #4b53bc"
+        >
+          {{ currentUser }}
+        </div>
+        <a
+          *ngIf="currentUser !== '' && currentUser !== null"
+          class="nav-link"
+          routerLink="/logout"
+          style="color: black"
+          ><i class="fas fa-sign-out-alt"></i> Logout</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
