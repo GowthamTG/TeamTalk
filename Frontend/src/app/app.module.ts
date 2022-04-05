@@ -27,6 +27,8 @@ import { NavBarComponent } from './partials/nav-bar/nav-bar.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
+import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -54,6 +56,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
 
     // SocketIoModule.forRoot(config),
   ],

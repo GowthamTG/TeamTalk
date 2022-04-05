@@ -10,6 +10,7 @@ export class NavBarComponent implements OnInit {
   currentUser: string | null = '';
   inFeedRoute: boolean = false;
   isExpanded: boolean = false;
+
   constructor(private router: ActivatedRoute) {}
 
   ngOnInit(): void {
