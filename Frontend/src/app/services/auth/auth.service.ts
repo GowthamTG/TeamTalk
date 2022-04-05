@@ -45,7 +45,7 @@ export class AuthService {
       this.isAuthenticated = true;
       this.authStatusListener.next(true);
       this.saveAuthData(token, response.name, response.email);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/groups']);
     }
   }
 

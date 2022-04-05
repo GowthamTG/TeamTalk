@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 
 // import { AdminGuard } from './modules/auth/assets/admin/admin.guard';
 // import { AuthGuard } from './modules/auth/assets/user/auth.guard';
@@ -11,6 +12,14 @@ const routes: Routes = [
     component: AuthLayoutComponent,
     loadChildren: () =>
       import('./auth-pages/auth-pages.module').then((m) => m.AuthPagesModule),
+  },
+  {
+    path: 'groups',
+    component: ContentLayoutComponent,
+    loadChildren: () =>
+      import('./groups-page/groups-page.module').then(
+        (m) => m.GroupsPageModule
+      ),
   },
 
   { path: '**', redirectTo: 'auth/login' },

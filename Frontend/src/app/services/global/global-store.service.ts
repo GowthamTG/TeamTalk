@@ -14,6 +14,8 @@ export class GlobalStoreService {
   }
 
   setGlobalStore(token: string, userName: string, email: string) {
+    console.log('Setting Local');
+
     localStorage.setItem('token', token);
     localStorage.setItem('name', userName);
     localStorage.setItem('email', email);

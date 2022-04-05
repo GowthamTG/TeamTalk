@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ChatPageComponent
+  ],
   imports: [
     CommonModule
   ]
