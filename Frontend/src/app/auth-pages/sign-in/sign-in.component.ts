@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/apis/api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  signInForm = this.fb.group({
+  signInForm: FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     staySignedIn: [false],

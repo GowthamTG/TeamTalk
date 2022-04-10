@@ -73,6 +73,19 @@ userService.loginUser = async (loginDetails) => {
   }
 };
 
+userService.getAllUserWithEmail = (email) => {
+  try {
+    return userModel
+      .getAllUserWithEmail(email)
+      .then((response) => {
+        return response;
+      })
+      .then((users) => users);
+  } catch (statusCd) {
+    throw new ApiError("Unknown Error", statusCd);
+  }
+};
+
 // userService.verifyEmail = (userDetails) => {
 //   try {
 //     return userModel.getUserByEmail(userDetails.email).then((response) => {
@@ -113,17 +126,17 @@ userService.loginUser = async (loginDetails) => {
 //     emails.push(...Details.members);
 //   }
 //   emails.push(Details.email);
-//   try {
-//     return userModel
-//       .getUserByEmailArray(emails)
-//       .then((response) => {
-//         if (!response) throw new ApiError("User does not exist", 400);
-//         return response;
-//       })
-//       .then((users) => users);
-//   } catch (statusCd) {
-//     throw new ApiError("Unknown Error", statusCd);
-//   }
+// try {
+//   return userModel
+//     .getUserByEmailArray(emails)
+//     .then((response) => {
+//       if (!response) throw new ApiError("User does not exist", 400);
+//       return response;
+//     })
+//     .then((users) => users);
+// } catch (statusCd) {
+//   throw new ApiError("Unknown Error", statusCd);
+// }
 // };
 
 // userService.editProfile = (userDetails) => {

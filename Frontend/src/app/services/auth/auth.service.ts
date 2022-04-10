@@ -33,6 +33,7 @@ export class AuthService {
   }
 
   login(response: {
+    id: string;
     message: string;
     token: string;
     email: string;
@@ -44,7 +45,7 @@ export class AuthService {
     if (token) {
       this.isAuthenticated = true;
       this.authStatusListener.next(true);
-      this.saveAuthData(token, response.name, response.email);
+      this.saveAuthData(response.id, token, response.name, response.email);
       this.router.navigate(['/groups']);
     }
   }
@@ -67,8 +68,13 @@ export class AuthService {
     this.router.navigate(['/auth', 'login']);
   }
 
-  private saveAuthData(token: string, userName: string, email: string) {
-    this.GlobalService.setGlobalStore(token, userName, email);
+  private saveAuthData(
+    id: string,
+    token: string,
+    userName: string,
+    email: string
+  ) {
+    this.GlobalService.setGlobalStore(id, token, userName, email);
   }
 
   private clearAuthData() {
@@ -76,6 +82,7 @@ export class AuthService {
     localStorage.removeItem('email');
     localStorage.removeItem('role');
     localStorage.removeItem('name');
+    localStorage.removeItem('id');
   }
 
   private getAuthData() {
@@ -88,4 +95,17 @@ export class AuthService {
       token: token,
     };
   }
+  //   getLoggedInUser() {
+  //     const token = this.getAuthData()?.token;
+  //     if(token)
+  //   }
+  //   function parseJwt (token) {
+  //     var base64Url = token.split('.')[1];
+  //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+  //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  //     }).join(''));
+
+  //     return JSON.parse(jsonPayload);
+  // };
 }

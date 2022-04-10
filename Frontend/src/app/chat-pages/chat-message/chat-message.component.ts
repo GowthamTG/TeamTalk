@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-// import { MessageI } from 'src/app/model/message.interface';
-// import { UserI } from 'src/app/model/user.interface';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { MessageI } from 'src/app/interfaces/message.interface';
+import { UserI } from 'src/app/interfaces/user.interface';
+
+import { GlobalStoreService } from 'src/app/services/global/global-store.service';
 
 @Component({
   selector: 'app-chat-message',
@@ -9,8 +10,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./chat-message.component.scss'],
 })
 export class ChatMessageComponent {
-  // @Input() message: MessageI;
-  // user: UserI = this.authService.getLoggedInUser();
+  @Input() message: MessageI | undefined;
+  user: UserI = this.globalStore.getGlobalStore();
 
-  constructor(private authService: AuthService) {}
+  constructor(private globalStore: GlobalStoreService) {}
 }

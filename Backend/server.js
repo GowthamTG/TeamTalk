@@ -1,7 +1,13 @@
 const express = require("express");
 const app = express();
-const server = require("http").Server(app);
-const io = require("socket.io")(server);
+const server = require("http").createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:4200",
+  },
+});
+
 const { v4: uuidV4 } = require("uuid"); //for generating random Room IDs
 const bodyParser = require("body-parser");
 const expressSanitizer = require("express-sanitizer");
@@ -27,7 +33,7 @@ const SessionManager = require("./modules/UserSessionModule");
 const errorLogger = require("./utils/errorLogger");
 
 // const homePageRoute = require("./routes/homePageRoute");
-// const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 // const userHomeRoute = require("./routes/userHomeRoute");
 // const postRoutes = require("./routes/postRoutes");
@@ -116,7 +122,7 @@ app.use("/peerjs", peerServer);
 
 // app.use(homePageRoute);
 app.use(authRoutes);
-// app.use(userRoutes);
+app.use(userRoutes);
 // app.use(userHomeRoute);
 // app.use(postRoutes);
 // app.use(meetConversationRoutes);
@@ -128,69 +134,69 @@ app.use(errorLogger);
 
 // ---------------------------Socket Connection----------------------------------------- //
 
-io.on("connection", (socket) => {
-  // -------------------------Socket events for Meeting Room----------------------------- //
+// io.on("connection", (socket) => {
+//   // -------------------------Socket events for Meeting Room----------------------------- //
 
-  socket.on("join-room", (roomId, userId) => {
-    socket.join(roomId);
-    let user = { userId: userId, username: username };
-    socket.broadcast.to(roomId).emit("user-connected", user);
+//   socket.on("join-room", (roomId, userId) => {
+//     socket.join(roomId);
+//     let user = { userId: userId, username: username };
+//     socket.broadcast.to(roomId).emit("user-connected", user);
 
-    socket.on("message", (message) => {
-      io.to(roomId).emit("createMessage", message);
-    });
+//     socket.on("message", (message) => {
+//       io.to(roomId).emit("createMessage", message);
+//     });
 
-    socket.on("know-my-id", (herObj) => {
-      socket.broadcast.to(roomId).emit("know-my-id", herObj);
-    });
+//     socket.on("know-my-id", (herObj) => {
+//       socket.broadcast.to(roomId).emit("know-my-id", herObj);
+//     });
 
-    socket.on("hand-raise", (user) => {
-      socket.broadcast.to(roomId).emit("hand-raise", user);
-    });
+//     socket.on("hand-raise", (user) => {
+//       socket.broadcast.to(roomId).emit("hand-raise", user);
+//     });
 
-    socket.on("disconnect", () => {
-      socket.broadcast.to(roomId).emit("user-disconnected", userId);
-    });
-  });
+//     socket.on("disconnect", () => {
+//       socket.broadcast.to(roomId).emit("user-disconnected", userId);
+//     });
+//   });
 
-  // -------------------------Other global socket events----------------------------- //
+//   // -------------------------Other global socket events----------------------------- //
 
-  socket.on("message", (message) => {
-    io.to(message.roomId).emit("createMessage", message);
-  });
+//   socket.on("message", (message) => {
+//     io.to(message.roomId).emit("createMessage", message);
+//   });
 
-  socket.on("login", (data) => {
-    sessionManager.setUser(data.username, socket.id);
-  });
+//   socket.on("login", (data) => {
+//     sessionManager.setUser(data.username, socket.id);
+//   });
 
-  socket.on("reconnect", (data) => {
-    console.log("reconnected");
-  });
+//   socket.on("reconnect", (data) => {
+//     console.log("reconnected");
+//   });
 
-  socket.on("disconnect", () => {
-    sessionManager.deleteUser(socket.id);
-  });
+//   socket.on("disconnect", () => {
+//     sessionManager.deleteUser(socket.id);
+//   });
 
-  socket.on("user-reconnected", function () {
-    console.log("reconneted");
-  });
+//   socket.on("user-reconnected", function () {
+//     console.log("reconneted");
+//   });
 
-  socket.on("add-message-to-server", async (data, cb) => {
-    const newMessage = new Message({
-      conversationId: data.activeConversationId,
-      sender: data.userId,
-      text: data.message,
-    });
+//   socket.on("add-message-to-server", async (data, cb) => {
+//     const newMessage = new Message({
+//       conversationId: data.activeConversationId,
+//       sender: data.userId,
+//       text: data.message,
+//     });
 
-    try {
-      const savedMessage = await newMessage.save();
-      sendMessageToParticipants(data);
-      cb();
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-});
+//     try {
+//       const savedMessage = await newMessage.save();
+//       sendMessageToParticipants(data);
+//       cb();
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   });
+// });
 
 // -----------send message from the Socket to conversation participants------------------ //
 
@@ -214,5 +220,57 @@ async function sendMessageToParticipants(data) {
     } else console.log("message not sent");
   });
 }
+
+var users = 0;
+
+io.on("connection", function (socket) {
+  console.log("User connected");
+
+  socket.on("disconnect", function (socket) {
+    console.log("user disconnected");
+  });
+  //join room
+  socket.on("join", function (data) {
+    //display the number of users in room
+    users += 1;
+    console.log(users);
+    io.sockets.emit("usercount", { count: users + " person joined " });
+    //end
+
+    // user joining the particular room
+    socket.join(data.room);
+
+    console.log(data.user + "joined the room:" + data.room);
+
+    //inform other on the room about event
+    socket.broadcast.to(data.room).emit("new user joined", {
+      user: data.user,
+      message: "has joined this room ",
+    });
+  });
+  //leave room
+
+  socket.on("leave", function (data) {
+    //number of users in room
+    users--;
+    io.sockets.emit("usercount", { count: "" + users });
+    console.log(users);
+    //end
+
+    console.log(data.user + "has left the room " + data.room);
+    socket.broadcast
+      .to(data.room)
+      .emit("left room", { user: data.user, message: "has left the room " });
+    socket.leave(data.room);
+  });
+
+  //sending message
+  socket.on("message", function (data) {
+    io.in(data.room).emit("new message", {
+      user: data.user,
+      message: data.message,
+    });
+  });
+});
 
 server.listen(port);

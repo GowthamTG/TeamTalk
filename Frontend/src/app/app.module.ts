@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { SocketIoConfig } from 'ngx-socket-io';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { FormsModule } from '@angular/forms';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,6 +18,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -27,10 +29,8 @@ import { NavBarComponent } from './partials/nav-bar/nav-bar.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -46,6 +46,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    // SocketIoModule.forRoot(config),
+    HttpClientModule,
     RouterTestingModule,
     RouterModule,
     MatDialogModule,
@@ -53,14 +55,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     MatIconModule,
     MatListModule,
     MatToolbarModule,
+    MatSnackBarModule,
     FormsModule,
-    HttpClientModule,
     AppRoutingModule,
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule,
-
-    // SocketIoModule.forRoot(config),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

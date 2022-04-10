@@ -90,4 +90,12 @@ userModel.updateToken = (userEmail) => {
     .then((model) => model.updateOne({ email: userEmail }, { token: token }))
     .then((response) => response);
 };
+
+userModel.getAllUserSimilarName = (email) => {
+  return collection
+    .getCollection(COLLECTION_NAME.USERS)
+    .then((model) => model.find({ email: "/^" + email + "/" }))
+    .then((response) => response);
+};
+
 module.exports = userModel;

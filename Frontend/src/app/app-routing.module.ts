@@ -22,6 +22,13 @@ const routes: Routes = [
       ),
   },
 
+  {
+    path: 'chats',
+    component: ContentLayoutComponent,
+    loadChildren: () =>
+      import('./chat-pages/chat-pages.module').then((m) => m.ChatPagesModule),
+  },
+
   { path: '**', redirectTo: 'auth/login' },
 ];
 

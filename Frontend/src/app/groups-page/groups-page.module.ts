@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { GroupsPageComponent } from './groups-page/groups-page.component';
 import { SelectUsersComponent } from './select-users/select-users.component';
-import { CreateRoomComponent } from './create-room/create-room.component';
+
 @NgModule({
-  declarations: [GroupsPageComponent, SelectUsersComponent, CreateRoomComponent],
+  declarations: [GroupsPageComponent, SelectUsersComponent],
   imports: [
     CommonModule,
     GroupsRoutingModule,
