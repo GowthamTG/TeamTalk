@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ChatService } from 'src/app/services/chat/chat.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { ChatService } from 'src/app/services/chat/chat.service';
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.scss'],
 })
-export class ChatPageComponent implements OnInit {
+export class ChatPageComponent implements OnInit, OnDestroy {
   onlineUser: any = [];
   u!: string;
   roomsForChat: any = ['Angular', 'React', 'Vue'];
@@ -24,7 +25,11 @@ export class ChatPageComponent implements OnInit {
     messageText: [''],
   });
 
-  constructor(private _chatService: ChatService, private fb: FormBuilder) {}
+  constructor(
+    private _chatService: ChatService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   join() {
     this.joined = true;
@@ -55,20 +60,32 @@ export class ChatPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._chatService
-      .newUserJoined()
-      .subscribe((data) => this.messageArray.push(data));
-    this._chatService
-      .userLeftRoom()
-      .subscribe((data) => this.messageArray.push(data));
-    this._chatService
-      .newMessageReceived()
-      .subscribe((data) => this.messageArray.push(data));
-    this._chatService.totalUsers().subscribe((data) => {
-      this.count = data.count;
+    this.route.queryParams.subscribe((params) => {
+      console.log(params); // { category: "fiction" }
+      console.log(params['meetId']);
+
+      this.chatForm.setValue({
+        user: 'Gowtham',
+        room: params['meetId'],
+        messageText: '',
+      });
+      console.log(this.chatForm.value);
+      this._chatService
+        .newUserJoined()
+        .subscribe((data) => this.messageArray.push(data));
+      this._chatService
+        .userLeftRoom()
+        .subscribe((data) => this.messageArray.push(data));
+      this._chatService
+        .newMessageReceived()
+        .subscribe((data) => this.messageArray.push(data));
+      this._chatService.totalUsers().subscribe((data) => {
+        this.count = data.count;
+      });
+      this.userInfo = history.state;
+      this.u = this.userInfo.email;
+      this.join();
     });
-    this.userInfo = history.state;
-    this.u = this.userInfo.email;
   }
   // Choose room using select dropdown
   changeRoom(e: any) {
@@ -85,6 +102,10 @@ export class ChatPageComponent implements OnInit {
   }
   //to get list of online users
   getOnlineUsers() {}
+
+  ngOnDestroy(): void {
+    this.leave();
+  }
   // constructor() {}
   // ngOnInit(): void {}
 }
