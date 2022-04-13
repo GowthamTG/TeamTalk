@@ -75,6 +75,13 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.post("/register", (req, res, next) => {
+  usersService
+    .createUser(req.body)
+    .then((response) => res.send(response))
+    .catch((error) => next(error));
+});
+
 // ---------------------------Logout a user--------------------------------------- //
 
 // router.get("/logout", (req, res) => {

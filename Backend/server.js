@@ -25,7 +25,7 @@ const cors = require("cors");
 
 const User = require("./models/schemas/user");
 const Message = require("./models/message");
-const Conversation = require("./models/meetConversation");
+const Conversation = require("./models/meetConversation.model");
 const SessionManager = require("./modules/UserSessionModule");
 
 // ---------------------Importing Website Routes-------------------------------------- //

@@ -1,9 +1,10 @@
 const COLLECTION_NAME = {
   USERS: "User",
-  STATES: "states",
-  CITIES: "cities",
-  EVENTS: "Events",
-  TEAMS: "Teams",
+  MEETCONVERSATIONS: "meetconversations",
+  // STATES: "states",
+  // CITIES: "cities",
+  // EVENTS: "Events",
+  // TEAMS: "Teams",
 };
 const JWT_KEY = {
   SECRET: "BLA!BLA!",

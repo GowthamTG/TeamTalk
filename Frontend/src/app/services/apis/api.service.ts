@@ -18,8 +18,24 @@ export class ApiService {
     console.log(loginData);
     return this.http.post(`${this.url}/login`, loginData);
   }
+  onRegister(registerData: any) {
+    return this.http.post(`${this.url}/register`, registerData);
+  }
+  findByUsername(username: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.url}/find-by-username?username=${username}`
+    );
+  }
 
-  findByUsername(username: string): Observable<UserI[]> {
-    return this.http.get<UserI[]>(`find-by-username?username=${username}`);
+  // getAllRooms(roomsId: string[] | undefined) {
+  //   return this.http.post<any[]>(`${this.url}/get-all-meets-data`, roomsId);
+  // }
+  getAllRooms(userId: string | null) {
+    console.log(userId);
+
+    return this.http.post<any[]>(`${this.url}/get-all-meets-data`, { userId });
+  }
+  createMeet(meetData: any) {
+    return this.http.post<any[]>(`${this.url}/create-meet`, meetData);
   }
 }

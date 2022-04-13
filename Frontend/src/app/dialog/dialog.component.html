@@ -1,0 +1,14 @@
+<h1 mat-dialog-title class="heading heading--secondry">{{ data?.heading }}</h1>
+<div mat-dialog-content>
+  <p
+    class="mat-body-1"
+    class="content content--heading content--heading--secondry"
+  >
+    {{ data?.message }}
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn--event" mat-dialog-close (click)="closeErrorBox()">
+    Okay
+  </button>
+</div>

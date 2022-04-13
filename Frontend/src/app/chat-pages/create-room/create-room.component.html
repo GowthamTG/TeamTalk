@@ -51,3 +51,76 @@
     </div>
   </div>
 </div> -->
+
+<!-- <div class="mt-5 mat-elevation-z8"></div> -->
+
+<div class="d-flex justify-content-center">
+  <div class="container mt-5 mat-elevation-z8">
+    <div class="ml-5">
+      <form
+        class="example-form"
+        [formGroup]="createGroupForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <h3 class="mt-3 mb-5">Create a Room</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Group Name</mat-label>
+          <input
+            formControlName="groupName"
+            matInput
+            placeholder="User Name"
+            value="Sushi"
+          />
+        </mat-form-field>
+        <div formArrayName="users">
+          <div
+            class="mt-2"
+            *ngFor="let user of users.controls; let usersIndex = index"
+            [formGroupName]="usersIndex"
+          >
+            <p class="content form--label">Member Email {{ usersIndex + 1 }}</p>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>User Email</mat-label>
+              <input
+                type="text"
+                placeholder="Select User"
+                aria-label="Number"
+                matInput
+                formControlName="user"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of filteredOptions | async"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+              <!-- <button mat-button (click)="addUser()">Add User</button> -->
+            </mat-form-field>
+            <div>
+              <button
+                type="button"
+                class="btn btn-warning"
+                (click)="deleteUser(usersIndex)"
+              >
+                Delete Group Member
+              </button>
+            </div>
+          </div>
+          <button
+            class="mt-5 btn btn-primary"
+            type="button"
+            (click)="addUser()"
+          >
+            Add Group Member
+          </button>
+        </div>
+        <div>
+          <button class="m-5" mat-raised-button color="primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

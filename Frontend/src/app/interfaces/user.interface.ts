@@ -1,6 +1,7 @@
 export interface UserI {
   id: string | null;
   email: string | null;
-  username: string | null;
+  name: string | null;
   token: string | null;
+  ownedMeets: string[] | undefined;
 }

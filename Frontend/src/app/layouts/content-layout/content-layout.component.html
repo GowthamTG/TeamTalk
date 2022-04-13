@@ -10,17 +10,19 @@
         </mat-icon>
       </mat-list-item>
 
-      <mat-list-item [routerLink]="'dashboard'">
+      <mat-list-item routerLink="/groups">
         <mat-icon mat-list-icon>home</mat-icon>
-        <span *ngIf="isExpanded" class="menu-item">Dashboard</span>
+        <span *ngIf="isExpanded" routerLink="/groups" class="menu-item"
+          >Dashboard</span
+        >
       </mat-list-item>
 
-      <mat-list-item [routerLink]="'info'">
+      <mat-list-item routerLink="/groups">
         <mat-icon mat-list-icon>important_devices</mat-icon>
         <span *ngIf="isExpanded" class="menu-item">Info</span>
       </mat-list-item>
 
-      <mat-list-item [routerLink]="'user'">
+      <mat-list-item routerLink="/groups">
         <mat-icon mat-list-icon>supervisor_account</mat-icon>
         <span *ngIf="isExpanded" class="menu-item">User</span>
       </mat-list-item>

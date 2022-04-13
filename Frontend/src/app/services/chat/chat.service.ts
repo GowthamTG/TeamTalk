@@ -65,9 +65,11 @@ export class ChatService {
   joinRoom(data: any) {
     this.socket.emit('join', data);
   }
+
   leaveRoom(data: any) {
     this.socket.emit('leave', data);
   }
+
   newUserJoined() {
     let observable = new Observable<{
       user: String;
@@ -103,6 +105,7 @@ export class ChatService {
   sendMessage(data: { user: any; room: any; message: any }) {
     this.socket.emit('message', data);
   }
+
   newMessageReceived() {
     let observable = new Observable<{ user: String; message: String }>(
       (observer) => {

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const { Schema } = mongoose;
 
 const { COLLECTION_NAME, MongoDBURL } = require("../../keys/constant");
 
@@ -20,16 +21,13 @@ const UserSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  ownedMeets: {
+    type: Array,
+    default: [],
+  },
   hash: String,
   salt: String,
 });
-
-UserSchema.methods.setPassword = (password) => {
-  this.salt = crypto.randomBytes(16).toString("hex");
-  this.hash = crypto
-    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
-    .toString(`hex`);
-};
 
 UserSchema.methods.validPassword = (password, op, salt) => {
   var hash = crypto
@@ -39,6 +37,25 @@ UserSchema.methods.validPassword = (password, op, salt) => {
   console.log(hash);
   return op === hash;
 };
+
+const MeetConversationSchema = mongoose.Schema(
+  {
+    roomId: {
+      type: String,
+    },
+    owner: { type: Schema.Types.ObjectId, ref: "users" },
+    name: {
+      type: String,
+      default: `Teams Meeting ${Date.now()}`,
+    },
+    members: [{ type: Schema.Types.ObjectId, ref: "users" }],
+    isPersonal: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
 
 connection.getCollection = (collectionName) => {
   const DB_HOST = MongoDBURL.URL;
@@ -52,6 +69,8 @@ connection.getCollection = (collectionName) => {
       switch (collectionName) {
         case COLLECTION_NAME.USERS:
           return db.model(collectionName, UserSchema);
+        case COLLECTION_NAME.MEETCONVERSATIONS:
+          return db.model(collectionName, MeetConversationSchema);
       }
     })
     .catch((err) => {

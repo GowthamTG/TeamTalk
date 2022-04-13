@@ -21,6 +21,7 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
 import { JoinMeetChatComponent } from './join-meet-chat/join-meet-chat.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { JoinMeetChatComponent } from './join-meet-chat/join-meet-chat.component
     MatOptionModule,
     MatIconModule,
     MatInputModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatAutocompleteModule,
     MatChipsModule,

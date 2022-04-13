@@ -35,17 +35,23 @@ export class AuthService {
   login(response: {
     id: string;
     message: string;
-    token: string;
     email: string;
-    username: string;
     name: string;
+    token: string;
+    ownedMeets: string[];
   }) {
     const token = response.token;
     this.token = token;
     if (token) {
       this.isAuthenticated = true;
       this.authStatusListener.next(true);
-      this.saveAuthData(response.id, token, response.name, response.email);
+      this.saveAuthData(
+        response.id,
+        token,
+        response.name,
+        response.email,
+        response.ownedMeets
+      );
       this.router.navigate(['/groups']);
     }
   }
@@ -71,10 +77,11 @@ export class AuthService {
   private saveAuthData(
     id: string,
     token: string,
-    userName: string,
-    email: string
+    name: string,
+    email: string,
+    ownedMeets: string[]
   ) {
-    this.GlobalService.setGlobalStore(id, token, userName, email);
+    this.GlobalService.setGlobalStore(id, token, name, email, ownedMeets);
   }
 
   private clearAuthData() {

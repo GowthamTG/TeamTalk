@@ -6,16 +6,25 @@ var crypto = require("crypto");
 
 const userModel = {};
 
+const getSaltAndHash = (password) => {
+  console.log(password);
+  const salt = crypto.randomBytes(16).toString("hex");
+  console.log(salt);
+  const hash = crypto
+    .pbkdf2Sync(password, salt, 1000, 64, `sha512`)
+    .toString(`hex`);
+  return { salt: salt, hash: hash };
+};
+
 userModel.createUser = (userDetails) => {
   return collection
     .getCollection(COLLECTION_NAME.USERS)
     .then((model) => {
-      bcrypt.hash(userDetails.password, 10).then((hash) => {
-        userDetails.password = hash;
-        userDetails.token = crypto.randomBytes(36).toString("hex");
-        mailer.mailSender(userDetails);
-        model.create(userDetails);
-      });
+      const { salt, hash } = getSaltAndHash(userDetails.password);
+      userDetails.salt = salt;
+      userDetails.hash = hash;
+      delete userDetails.password;
+      model.create(userDetails);
     })
     .then((response) => response);
 };
@@ -91,10 +100,11 @@ userModel.updateToken = (userEmail) => {
     .then((response) => response);
 };
 
-userModel.getAllUserSimilarName = (email) => {
+userModel.getAllUserWithEmail = (email) => {
+  console.log(email);
   return collection
     .getCollection(COLLECTION_NAME.USERS)
-    .then((model) => model.find({ email: "/^" + email + "/" }))
+    .then((model) => model.find({}))
     .then((response) => response);
 };
 

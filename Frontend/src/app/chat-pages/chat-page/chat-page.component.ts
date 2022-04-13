@@ -16,6 +16,7 @@ export class ChatPageComponent implements OnInit {
   join_message!: string | null;
   leave_message!: string | null;
   count: any;
+  userInfo: any;
 
   chatForm: FormGroup = this.fb.group({
     user: ['', [Validators.required]],
@@ -23,7 +24,37 @@ export class ChatPageComponent implements OnInit {
     messageText: [''],
   });
 
-  constructor(private _chatService: ChatService, private fb: FormBuilder) {
+  constructor(private _chatService: ChatService, private fb: FormBuilder) {}
+
+  join() {
+    this.joined = true;
+    this.leave_message = null;
+    this.join_message = 'You have joined the room ' + this.room?.value;
+    this._chatService.joinRoom({
+      user: this.chatForm.get('user')!.value,
+      room: this.chatForm.get('room')!.value,
+    });
+  }
+
+  leave() {
+    this.joined = false;
+    this.join_message = null;
+    this.leave_message = 'You have  left the room ' + this.room?.value;
+    this._chatService.leaveRoom({
+      user: this.chatForm.get('user')!.value,
+      room: this.chatForm.get('room')!.value,
+    });
+  }
+
+  sendMessage() {
+    this._chatService.sendMessage({
+      user: this.chatForm.get('user')!.value,
+      room: this.chatForm.get('room')!.value,
+      message: this.chatForm.get('messageText')!.value,
+    });
+  }
+
+  ngOnInit() {
     this._chatService
       .newUserJoined()
       .subscribe((data) => this.messageArray.push(data));
@@ -36,34 +67,6 @@ export class ChatPageComponent implements OnInit {
     this._chatService.totalUsers().subscribe((data) => {
       this.count = data.count;
     });
-  }
-  join() {
-    this.joined = true;
-    this.leave_message = null;
-    this.join_message = 'You have joined the room ' + this.room?.value;
-    this._chatService.joinRoom({
-      user: this.chatForm.get('user')!.value,
-      room: this.chatForm.get('room')!.value,
-    });
-  }
-  leave() {
-    this.joined = false;
-    this.join_message = null;
-    this.leave_message = 'You have  left the room ' + this.room?.value;
-    this._chatService.leaveRoom({
-      user: this.chatForm.get('user')!.value,
-      room: this.chatForm.get('room')!.value,
-    });
-  }
-  sendMessage() {
-    this._chatService.sendMessage({
-      user: this.chatForm.get('user')!.value,
-      room: this.chatForm.get('room')!.value,
-      message: this.chatForm.get('messageText')!.value,
-    });
-  }
-  userInfo: any;
-  ngOnInit() {
     this.userInfo = history.state;
     this.u = this.userInfo.email;
   }

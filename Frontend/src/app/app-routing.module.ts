@@ -21,7 +21,6 @@ const routes: Routes = [
         (m) => m.GroupsPageModule
       ),
   },
-
   {
     path: 'chats',
     component: ContentLayoutComponent,
