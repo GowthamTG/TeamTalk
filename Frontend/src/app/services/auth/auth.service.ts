@@ -84,10 +84,10 @@ export class AuthService {
     this.GlobalService.setGlobalStore(id, token, name, email, ownedMeets);
   }
 
-  private clearAuthData() {
+  clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
-    localStorage.removeItem('role');
+    localStorage.removeItem('ownedMeets');
     localStorage.removeItem('name');
     localStorage.removeItem('id');
   }

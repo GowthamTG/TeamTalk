@@ -22,9 +22,14 @@
         <span *ngIf="isExpanded" class="menu-item">Info</span>
       </mat-list-item>
 
-      <mat-list-item routerLink="/groups">
-        <mat-icon mat-list-icon>supervisor_account</mat-icon>
-        <span *ngIf="isExpanded" class="menu-item">User</span>
+      <mat-list-item routerLink="/chats/create-room">
+        <mat-icon mat-list-icon>person_add</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Add User</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/auth/login" (onclick)="logout()">
+        <mat-icon mat-list-icon>logout</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Logout</span>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
