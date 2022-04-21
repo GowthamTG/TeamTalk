@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/Chatapp/Group14-FrontEnd/project-chat/src/app/reset/reset.component.css" />
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="text-center">
+            <h1>Reset Your Password </h1> 
+            
+           <p>Password should be minimum of 6 characters</p>
+           </div>
+          
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"> 
+             
+            <h2>.</h2>
+            <form>
+              
+              <div class="mb-3"> 
+                <label 
+                  for="exampleInputPassword"
+                  class="form-label"
+                  placeholder="enter your password"
+                  >Enter old password: </label>
+                  </form>
+
+                  
+                <input type="text" class="form-control" id="exampleInputPassword" />
+              </div>
+              <form>
+              <div class="mb-3">
+                <label 
+                  for="exampleInputPassword"
+                  class="form-label"
+                  placeholder="enter your password"
+                  >Enter new password: </label> </form>
+                <input type="text" class="form-control" id="exampleInputPassword" />
+              </div>
+              
+              <div class="mb-3">
+                <label
+                  for="exampleInputConfirmPassword"
+                  class="form-label"
+                  placeholder="enter your password"
+                  >confirm new password: </label> 
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputConfirmPassword"/>
+                
+            
+              
+              </div>
+              <div></div>
+              <button class="button">Reset Password</button>
+              
+              </div>
+            
+        </div>
+        </div>
+      
+    </div>
+
+  

@@ -22,6 +22,7 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
 import { JoinMeetChatComponent } from './join-meet-chat/join-meet-chat.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatAutocompleteModule,
     MatChipsModule,
     MatSelectModule,
+    MatDialogModule,
   ],
 })
 export class ChatPagesModule {}

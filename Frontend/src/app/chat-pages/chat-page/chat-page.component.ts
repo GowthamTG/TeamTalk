@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UserI } from 'src/app/interfaces/user.interface';
 import { ChatService } from 'src/app/services/chat/chat.service';
+import { GlobalStoreService } from 'src/app/services/global/global-store.service';
 
 @Component({
   selector: 'app-chat-page',
@@ -18,7 +20,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   leave_message!: string | null;
   count: any;
   userInfo: any;
-
+  userData!: UserI;
   chatForm: FormGroup = this.fb.group({
     user: ['', [Validators.required]],
     room: ['', [Validators.required]],
@@ -26,6 +28,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   });
 
   constructor(
+    private globalService: GlobalStoreService,
     private _chatService: ChatService,
     private route: ActivatedRoute,
     private fb: FormBuilder
@@ -60,26 +63,27 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
+    this.userData = this.globalService.getGlobalStore();
+    this.route.queryParams.subscribe((params: any) => {
       console.log(params); // { category: "fiction" }
       console.log(params['meetId']);
 
       this.chatForm.setValue({
-        user: 'Gowtham',
+        user: this.userData.name,
         room: params['meetId'],
         messageText: '',
       });
       console.log(this.chatForm.value);
       this._chatService
         .newUserJoined()
-        .subscribe((data) => this.messageArray.push(data));
+        .subscribe((data: any) => this.messageArray.push(data));
       this._chatService
         .userLeftRoom()
-        .subscribe((data) => this.messageArray.push(data));
+        .subscribe((data: any) => this.messageArray.push(data));
       this._chatService
         .newMessageReceived()
-        .subscribe((data) => this.messageArray.push(data));
-      this._chatService.totalUsers().subscribe((data) => {
+        .subscribe((data: any) => this.messageArray.push(data));
+      this._chatService.totalUsers().subscribe((data: any) => {
         this.count = data.count;
       });
       this.userInfo = history.state;

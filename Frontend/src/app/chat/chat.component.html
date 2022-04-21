@@ -1,0 +1,31 @@
+<div class="chat-container">
+  <app-header></app-header>
+  <div class="chat-body">
+    <div class="sidebar">
+      <div class="sidebar-content">
+        <div class="sidebar-top" *ngFor="let content of sidebar; let i = index">
+          {{ content }}
+        </div>
+        <div class="sidebar-bottom">
+          <div>Settings</div>
+          <div>Help</div>
+        </div>
+      </div>
+    </div>
+    <div class="contacts">John Wick</div>
+    
+    <div class="chat-area">
+      <div class="chat-messages">
+        <div class="chat-messages-show-container">
+          <ul class="chat-messages-show-list"></ul>
+        </div>
+        <div class="chat-messages-create-container">
+          <input class="chat-messages-create-input" type="text" />
+          <button class="chat-messages-create-button" >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

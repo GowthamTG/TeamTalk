@@ -44,7 +44,7 @@ export class SignInComponent implements OnInit {
               this.signInForm.reset();
             }
           },
-          (err) => {
+          (err: any) => {
             console.log(err);
           },
           () => {

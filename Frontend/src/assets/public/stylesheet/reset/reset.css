@@ -1,0 +1,62 @@
+.card{
+    margin-top: 10px;
+    border: none;
+    width: 400px;
+    padding: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(239, 242, 245);
+    background: linear-gradient(90deg, rgb(145, 184, 236) 0%, rgb(243, 242, 241) 100%);
+}
+
+h1 {
+    color: black;
+    padding-left: 10px;
+    padding-bottom: 100px;
+    padding-top: 100px;
+}
+.form-text{
+    color: rgb(49, 46, 46);
+    align-self: center;
+}
+.form-label{
+    color: black;
+    font-size: large;
+    font-weight: bold;
+}
+.form-control{
+    color: black;
+    padding-left: 80px;
+    padding-bottom: 10px;
+}
+
+.mb-3{
+    padding-bottom: 1px;
+}
+h6 {
+    color: #fff;
+    
+}
+
+label {
+    color: #fff;
+}
+
+
+.btn btn-primary{
+    color: black;
+    font-weight: bold;
+    padding-left: 100px;
+    position: absolute;
+    margin: 100px;
+}
+.button{
+    color:black;
+    font-weight: bold;
+    padding-left: 100px;
+    position: absolute;
+    margin: 100px;
+    
+}

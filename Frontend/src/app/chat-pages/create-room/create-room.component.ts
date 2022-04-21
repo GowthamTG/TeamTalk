@@ -6,8 +6,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, startWith, map } from 'rxjs';
+import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { UserI } from 'src/app/interfaces/user.interface';
 import { ApiService } from 'src/app/services/apis/api.service';
 import { ChatService } from 'src/app/services/chat/chat.service';
@@ -74,7 +76,9 @@ export class CreateRoomComponent {
   constructor(
     private apiService: ApiService,
     private globalService: GlobalStoreService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   userDatas!: any[];
@@ -82,7 +86,7 @@ export class CreateRoomComponent {
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value))
+      map((value: any) => this._filter(value))
     );
     this.apiService.findByUsername(this.myControl.value).subscribe(
       (res: any) => {
@@ -96,7 +100,7 @@ export class CreateRoomComponent {
 
         console.log(this.options);
       },
-      (err) => {
+      (err: any) => {
         console.log(err);
       }
     );
@@ -153,7 +157,13 @@ export class CreateRoomComponent {
     console.log(formData);
     this.apiService.createMeet(formData).subscribe(
       (res: any) => {
-        console.log(res);
+        this.dialog.open(DialogComponent, {
+          data: {
+            heading: `Room Created`,
+            message: `Room Created Successfully`,
+          },
+        });
+        this.router.navigate(['/groups']);
       },
       (err: any) => {
         console.log(err);

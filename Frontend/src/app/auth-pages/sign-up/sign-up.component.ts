@@ -47,10 +47,10 @@ export class SignUpComponent implements OnInit {
                 message: `User Created Successfully`,
               },
             });
-            this.router.navigate(['auth', 'login']);
+            this.router.navigate(['/auth', 'login']);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err);
         },
         () => {

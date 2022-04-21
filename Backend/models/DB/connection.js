@@ -59,7 +59,7 @@ const MeetConversationSchema = mongoose.Schema(
 
 connection.getCollection = (collectionName) => {
   const DB_HOST = MongoDBURL.URL;
-
+  console.log(DB_HOST);
   return mongoose
     .connect(`${DB_HOST}`, {
       useNewUrlParser: true,
@@ -75,6 +75,7 @@ connection.getCollection = (collectionName) => {
     })
     .catch((err) => {
       let error = new Error("Could not connect to database");
+      console.log(err);
       error.status = 500;
       throw error;
     });

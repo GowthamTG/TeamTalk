@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ChatComponent } from './chat/chat.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './services/auth/auth.gaurd';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
 
 // import { AdminGuard } from './modules/auth/assets/admin/admin.guard';
 // import { AuthGuard } from './modules/auth/assets/user/auth.guard';
 
 const routes: Routes = [
+  { path: 'chat', component: ChatComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'auth',
     component: AuthLayoutComponent,
@@ -16,6 +22,7 @@ const routes: Routes = [
   {
     path: 'groups',
     component: ContentLayoutComponent,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./groups-page/groups-page.module').then(
         (m) => m.GroupsPageModule
@@ -24,6 +31,7 @@ const routes: Routes = [
   {
     path: 'chats',
     component: ContentLayoutComponent,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./chat-pages/chat-pages.module').then((m) => m.ChatPagesModule),
   },
