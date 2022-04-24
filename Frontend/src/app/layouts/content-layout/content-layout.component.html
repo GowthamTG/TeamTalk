@@ -27,6 +27,11 @@
         <span *ngIf="isExpanded" class="menu-item">Add User</span>
       </mat-list-item>
 
+      <mat-list-item routerLink="/groups/schedule">
+        <mat-icon mat-list-icon>calendar_month</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Add Event</span>
+      </mat-list-item>
+
       <mat-list-item routerLink="/auth/login" (onclick)="logout()">
         <mat-icon mat-list-icon>logout</mat-icon>
         <span *ngIf="isExpanded" class="menu-item">Logout</span>

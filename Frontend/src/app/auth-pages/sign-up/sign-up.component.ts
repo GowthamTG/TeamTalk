@@ -59,4 +59,19 @@ export class SignUpComponent implements OnInit {
       );
     }
   }
+
+  get name() {
+    return this.signUpForm.controls['name'];
+  }
+
+  get email() {
+    return this.signUpForm.controls['email'];
+  }
+
+  get password() {
+    return this.signUpForm.controls['password'];
+  }
+  get reenterPassword() {
+    return this.signUpForm.controls['reenterPassword'];
+  }
 }

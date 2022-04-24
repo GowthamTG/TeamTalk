@@ -78,6 +78,13 @@
                   required
                 />
               </div>
+              <div
+                *ngIf="name.touched && name.dirty && name.invalid"
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                Email is incorrect
+              </div>
               <div class="field padding-bottom--24">
                 <label for="name">User Name</label>
                 <input
@@ -87,6 +94,13 @@
                   placeholder="Enter Your Name"
                   required
                 />
+              </div>
+              <div
+                *ngIf="name.touched && name.dirty && name.invalid"
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                Name is incorrect
               </div>
               <div class="field padding-bottom--24">
                 <div class="grid--50-50">
@@ -100,6 +114,13 @@
                   required
                 />
               </div>
+              <div
+                *ngIf="password.touched && password.dirty && password.invalid"
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                Password is incorrect
+              </div>
               <div class="field padding-bottom--24">
                 <div class="grid--50-50">
                   <label for="password">Re-enter Password</label>
@@ -111,6 +132,17 @@
                   placeholder="********"
                   required
                 />
+              </div>
+              <div
+                *ngIf="
+                  reenterPassword.touched &&
+                  reenterPassword.dirty &&
+                  reenterPassword.invalid
+                "
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                Re-Enter Password Field is incorrect
               </div>
 
               <div class="field padding-bottom--24">

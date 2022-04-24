@@ -33,6 +33,9 @@ import { DialogComponent } from './dialog/dialog.component';
 import { RegisterComponent } from './register/register.component';
 import { ChatComponent } from './chat/chat.component';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
@@ -51,6 +54,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     // SocketIoModule.forRoot(config),
     HttpClientModule,
     RouterTestingModule,

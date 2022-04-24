@@ -9,11 +9,6 @@ const routes: Routes = [
     component: CreateRoomComponent,
   },
   { path: 'chat', component: ChatPageComponent },
-  {
-    path: '**',
-    redirectTo: 'groups',
-    pathMatch: 'full',
-  },
 ];
 
 @NgModule({

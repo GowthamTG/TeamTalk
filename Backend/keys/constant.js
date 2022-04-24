@@ -15,7 +15,8 @@ const HOST = {
 };
 
 const MongoDBURL = {
-  URL: "mongodb://localhost:27017/test",
+  // URL: "mongodb://localhost:27017/test",
+  URL: "mongodb+srv://GowthamTG:saYNDwuQUEvtjFs6@cluster0.s3jhi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 };
 
 module.exports = { COLLECTION_NAME, JWT_KEY, HOST, MongoDBURL };

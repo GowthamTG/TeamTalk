@@ -43,23 +43,6 @@
       <div class="formbg-outer">
         <div class="formbg">
           <div class="formbg-inner padding-horizontal--48">
-            <div
-              *ngIf="
-                signInForm.touched && signInForm.dirty && signInForm.invalid
-              "
-              class="alert alert-danger alert-dismissable fade show"
-              role="alert"
-            >
-              Password or Username is incorrect
-              <button
-                id="fail"
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-                style="margin-left: 3em; float: right"
-              ></button>
-            </div>
             <span class="padding-bottom--15">Sign in to your account</span>
             <form
               [formGroup]="signInForm"
@@ -69,7 +52,7 @@
               method="POST"
             >
               <div class="field padding-bottom--24">
-                <label for="username">User Id</label>
+                <label for="username">User Email</label>
                 <input
                   formControlName="username"
                   type="text"
@@ -77,6 +60,13 @@
                   placeholder="Enter Your Name"
                   required
                 />
+              </div>
+              <div
+                *ngIf="username.touched && username.dirty && username.invalid"
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                Username is incorrect
               </div>
               <div class="field padding-bottom--24">
                 <div class="grid--50-50">
@@ -89,6 +79,13 @@
                   placeholder="********"
                   required
                 />
+              </div>
+              <div
+                *ngIf="password.touched && password.dirty && password.invalid"
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                Password is incorrect
               </div>
               <div
                 class="field field-checkbox padding-bottom--24 flex-flex align-center"
