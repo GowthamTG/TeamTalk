@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 const meetConversationModel = require("../models/meetConversation.model");
+const eventModel = require("../models/event.model");
 
 const { ApiError } = require("../objectCreator/objectCreator");
 const jwt = require("jsonwebtoken");
@@ -106,5 +107,32 @@ userService.createMeet = (meetData) => {
   }
 };
 
+userService.createEvent = (meetData) => {
+  try {
+    return eventModel
+      .createEvent(meetData)
+      .then((response) => {
+        return { response: response, message: "MEET CREATED SUCCESSFULLY" };
+      })
+      .then((meet) => meet);
+  } catch (statusCd) {
+    throw new ApiError("Unknown Error", statusCd);
+  }
+};
+
+userService.getAllEvent = (user) => {
+  try {
+    console.log(user);
+    return eventModel
+      .getAllEvent(user.userId)
+      .then((response) => {
+        console.log(response);
+        return { response };
+      })
+      .then((meets) => meets);
+  } catch (statusCd) {
+    throw new ApiError("Unknown Error", statusCd);
+  }
+};
 
 module.exports = userService;

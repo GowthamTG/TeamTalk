@@ -2,13 +2,6 @@ const express = require("express");
 const router = express.Router();
 const usersService = require("../services/user.service");
 
-router.post("/get-all-meets-data", async (req, res) => {
-  usersService
-    .getAllMeetsWithIds(req.body)
-    .then((response) => res.send(response))
-    .catch((error) => next(error));
-});
-
 router.get("/find-by-username", async (req, res) => {
   console.log(req.query);
   usersService
@@ -24,4 +17,25 @@ router.post("/create-meet", async (req, res) => {
     .catch((error) => next(error));
 });
 
+router.post("/create-event", async (req, res) => {
+  console.log(req.body);
+  usersService
+    .createEvent(req.body)
+    .then((response) => res.send(response))
+    .catch((error) => next(error));
+});
+
+router.post("/get-all-events-data", async (req, res) => {
+  usersService
+    .getAllEvent(req.body)
+    .then((response) => res.send(response))
+    .catch((error) => next(error));
+});
+
+router.post("/get-all-meets-data", async (req, res) => {
+  usersService
+    .getAllMeetsWithIds(req.body)
+    .then((response) => res.send(response))
+    .catch((error) => next(error));
+});
 module.exports = router;

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CalendarView,
   CalendarEvent,
@@ -17,6 +18,10 @@ import {
   endOfDay,
 } from 'date-fns';
 import { Subject } from 'rxjs';
+import { UserI } from 'src/app/interfaces/user.interface';
+import { ApiService } from 'src/app/services/apis/api.service';
+import { GlobalStoreService } from 'src/app/services/global/global-store.service';
+import { CreateEventComponent } from '../create-event/create-event.component';
 
 @Component({
   selector: 'app-calendar',
@@ -114,12 +119,28 @@ export class CalendarComponent implements OnInit {
       draggable: true,
     },
   ];
-
+  userData!: UserI;
   activeDayIsOpen: boolean = true;
 
-  constructor() {}
+  constructor(
+    private dialog: MatDialog,
+    private globalService: GlobalStoreService,
+    private apiService: ApiService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.events);
+    this.userData = this.globalService.getGlobalStore();
+    this.apiService.getAllEvents(this.userData.id).subscribe(
+      (res: any) => {
+        console.log(this.events[0]);
+        console.log(res);
+
+        this.events = res;
+      },
+      (err) => {}
+    );
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -172,6 +193,23 @@ export class CalendarComponent implements OnInit {
         },
       },
     ];
+
+    const dialogRef = this.dialog.open(CreateEventComponent, {
+      data: {
+        heading: `Event Created`,
+        message: `Event Created Successfully`,
+      },
+    });
+    dialogRef.afterClosed().subscribe((userId) => {
+      // this.apiService.getAllEvents(userId).subscribe(
+      //   (res: any) => {
+      //     console.log(this.events[0]);
+      //     console.log(res);
+      //     this.events = res;
+      //   },
+      //   (err) => {}
+      // );
+    });
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

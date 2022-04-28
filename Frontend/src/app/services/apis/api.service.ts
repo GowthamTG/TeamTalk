@@ -38,4 +38,11 @@ export class ApiService {
   createMeet(meetData: any) {
     return this.http.post<any[]>(`${this.url}/create-meet`, meetData);
   }
+
+  getAllEvents(userId: any) {
+    return this.http.post<any[]>(`${this.url}/get-all-events-data`, { userId });
+  }
+  createEvent(meetData: any) {
+    return this.http.post<any[]>(`${this.url}/create-event`, meetData);
+  }
 }

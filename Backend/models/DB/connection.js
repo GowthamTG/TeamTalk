@@ -57,6 +57,42 @@ const MeetConversationSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+const EventsSchema = mongoose.Schema({
+  meetId: {
+    type: String,
+  },
+  createdBy: { type: Schema.Types.ObjectId, ref: "users" },
+  title: {
+    type: String,
+    default: `Teams Meeting ${Date.now()}`,
+  },
+  description: {
+    type: String,
+    default: `Meeting at ${Date.now()}`,
+  },
+  members: [{ type: Schema.Types.ObjectId, ref: "users" }],
+  priority: {
+    type: String,
+    default: `medium`,
+  },
+  resizable: {
+    beforeStart: {
+      type: Boolean,
+      default: false,
+    },
+    afterEnd: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  start: {
+    type: Date,
+  },
+  end: {
+    type: Date,
+  },
+});
+
 connection.getCollection = (collectionName) => {
   const DB_HOST = MongoDBURL.URL;
   console.log(DB_HOST);
@@ -71,6 +107,8 @@ connection.getCollection = (collectionName) => {
           return db.model(collectionName, UserSchema);
         case COLLECTION_NAME.MEETCONVERSATIONS:
           return db.model(collectionName, MeetConversationSchema);
+        case COLLECTION_NAME.EVENTS:
+          return db.model(collectionName, EventsSchema);
       }
     })
     .catch((err) => {
