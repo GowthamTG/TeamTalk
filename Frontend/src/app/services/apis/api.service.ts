@@ -45,4 +45,8 @@ export class ApiService {
   createEvent(meetData: any) {
     return this.http.post<any[]>(`${this.url}/create-event`, meetData);
   }
+
+  updateFavourites(userData: any) {
+    return this.http.post<any[]>(`${this.url}/update-favourites`, userData);
+  }
 }

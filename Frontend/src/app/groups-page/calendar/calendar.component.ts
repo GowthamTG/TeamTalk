@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -47,7 +51,7 @@ export class CalendarComponent implements OnInit {
       secondary: '#cacde9',
     },
   };
-
+  showSpinner: boolean = true;
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -79,67 +83,19 @@ export class CalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: this.colors.high,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: this.colors.medium,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: this.colors.medium,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: this.colors.low,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEvent[] = [];
   userData!: UserI;
   activeDayIsOpen: boolean = true;
 
   constructor(
     private dialog: MatDialog,
     private globalService: GlobalStoreService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    console.log(this.events);
-    this.userData = this.globalService.getGlobalStore();
-    this.apiService.getAllEvents(this.userData.id).subscribe(
-      (res: any) => {
-        console.log(this.events[0]);
-        console.log(res);
-
-        this.events = res;
-      },
-      (err) => {}
-    );
+    this.getAllEvents();
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -179,37 +135,39 @@ export class CalendarComponent implements OnInit {
   }
 
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New Ticket',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: this.colors.low,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-
-    const dialogRef = this.dialog.open(CreateEventComponent, {
-      data: {
-        heading: `Event Created`,
-        message: `Event Created Successfully`,
-      },
-    });
+    const dialogRef = this.dialog.open(CreateEventComponent);
     dialogRef.afterClosed().subscribe((userId) => {
-      // this.apiService.getAllEvents(userId).subscribe(
-      //   (res: any) => {
-      //     console.log(this.events[0]);
-      //     console.log(res);
-      //     this.events = res;
-      //   },
-      //   (err) => {}
-      // );
+      this.getAllEvents();
     });
+  }
+
+  getAllEvents() {
+    console.log(this.events);
+    this.showSpinner = true;
+    this.userData = this.globalService.getGlobalStore();
+    this.apiService.getAllEvents(this.userData.id).subscribe(
+      (res: any) => {
+        console.log(this.events[0]);
+        console.log(res);
+        res.response.forEach((e: any) => {
+          e.start = new Date(e.start);
+          e.end = new Date(e.end);
+          e.color = this.colors[e.priority];
+          e.actions = this.actions;
+          delete e.priority;
+        });
+        // console.log(new Date(res.response[0].start));
+        console.log(res);
+
+        this.events = res.response;
+        this.showSpinner = false;
+        this.cd.detectChanges();
+      },
+      (err) => {
+        this.showSpinner = false;
+        this.cd.detectChanges();
+      }
+    );
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

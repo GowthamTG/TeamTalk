@@ -107,4 +107,13 @@ userModel.getAllUserWithEmail = (email) => {
     .then((response) => response);
 };
 
+userModel.addFavouriteUser = (userData) => {
+  return collection
+    .getCollection(COLLECTION_NAME.USERS)
+    .then((model) =>
+      model.findByIdAndUpdate(userData.id, { favourites: userData.favourites })
+    )
+    .then((response) => response);
+};
+
 module.exports = userModel;

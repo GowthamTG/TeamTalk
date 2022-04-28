@@ -1,38 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDistanceToNowStrict } from 'date-fns/esm';
 import { UserI } from 'src/app/interfaces/user.interface';
 import { ApiService } from 'src/app/services/apis/api.service';
 import { GlobalStoreService } from 'src/app/services/global/global-store.service';
 
 @Component({
-  selector: 'app-groups-page',
-  templateUrl: './groups-page.component.html',
-  styleUrls: ['./groups-page.component.scss'],
+  selector: 'app-manage-favourites',
+  templateUrl: './manage-favourites.component.html',
+  styleUrls: ['./manage-favourites.component.scss'],
 })
-export class GroupsPageComponent implements OnInit {
+export class ManageFavouritesComponent implements OnInit {
+  userDatas: any[] = [];
   userData!: UserI;
   constructor(
     private apiService: ApiService,
     private globalService: GlobalStoreService
   ) {}
 
-  meetsData: any = [];
-  userDatas!: any[];
-  options: string[] = [];
   ngOnInit(): void {
     this.userData = this.globalService.getGlobalStore();
-    console.log(this.userData.ownedMeets);
-    if (this.userData.ownedMeets?.toString() === [''].toString()) {
-      console.log('Empty');
-    }
-    console.log(this.userData);
     this.apiService.findByUsername('').subscribe(
       (res: any) => {
         console.log(res);
-        this.userDatas = [...res];
-        for (let i = 0; i < this.userDatas.length; i++) {
-          if (this.userDatas[i].email != this.userData.email) {
-            this.options.push(this.userDatas[i].email.toLowerCase());
+
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].email != this.userData.email) {
+            this.userDatas.push(res[i]);
           }
         }
 
@@ -43,17 +35,10 @@ export class GroupsPageComponent implements OnInit {
         // });
 
         console.log(this.userDatas);
-
-        console.log(this.options);
       },
       (err: any) => {
         console.log(err);
       }
     );
-    this.apiService.getAllRooms(this.userData.id).subscribe((res: any) => {
-      console.log(res);
-
-      this.meetsData = res.response;
-    });
   }
 }

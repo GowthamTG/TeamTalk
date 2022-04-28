@@ -38,4 +38,12 @@ router.post("/get-all-meets-data", async (req, res) => {
     .then((response) => res.send(response))
     .catch((error) => next(error));
 });
+
+router.post("/update-favourites", async (req, res) => {
+  usersService
+    .getAllMeetsWithIds(req.body)
+    .then((response) => res.send(response))
+    .catch((error) => next(error));
+});
+
 module.exports = router;

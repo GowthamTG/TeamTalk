@@ -1,4 +1,8 @@
+<div *ngIf="showSpinner" class="container spinner--container center">
+  <mat-spinner class="spinner"></mat-spinner>
+</div>
 <div
+  *ngIf="!showSpinner"
   class="header"
   fxLayout="row"
   fxLayoutAlign="center center"

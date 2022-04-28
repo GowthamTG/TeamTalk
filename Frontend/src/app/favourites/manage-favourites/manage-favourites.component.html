@@ -1,0 +1,32 @@
+<div class="m-3">
+  <h1>Favourites</h1>
+  <mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let user of userDatas"
+      ><div class="container">
+        <mat-card>
+          <mat-card-title>User Name</mat-card-title>
+          <mat-card-subtitle>Start</mat-card-subtitle>
+          <mat-card-actions>
+            <button mat-raised-button>Chat</button>
+            <button
+              mat-icon-button
+              aria-label="Example icon button with a vertical three dot icon"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- 
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/chats', 'chat']"
+      [queryParams]="{ meetId: meet._id }"
+    >
+      Chat
+    </button> -->
+</div>

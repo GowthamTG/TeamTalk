@@ -135,4 +135,22 @@ userService.getAllEvent = (user) => {
   }
 };
 
+userService.addFavouriteUser = (user) => {
+  try {
+    console.log(user);
+    return userModel
+      .addFavouriteUser(user)
+      .then((response) => {
+        console.log(response);
+        return {
+          response: response,
+          message: "Favourite Updated Successfully",
+        };
+      })
+      .then((res) => res);
+  } catch (statusCd) {
+    throw new ApiError("Unknown Error", statusCd);
+  }
+};
+
 module.exports = userService;

@@ -122,44 +122,46 @@ export class CreateEventComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.createEventForm.value);
-    let formData = this.createEventForm.value;
-    formData.membersMail = [];
-    formData.members = [];
-    for (let memberMail of formData.users) {
-      formData.membersMail.push(memberMail.user);
+    if (this.createEventForm.valid) {
+      console.log(this.createEventForm.value);
+      let formData = this.createEventForm.value;
+      formData.membersMail = [];
+      formData.members = [];
+      for (let memberMail of formData.users) {
+        formData.membersMail.push(memberMail.user);
+      }
+
+      delete formData.userEmails;
+
+      this.userDatas.forEach((user) => {
+        console.log(user.email);
+        console.log(formData.membersMail);
+
+        if (formData.membersMail.includes(user.email)) {
+          formData.members.push(user._id);
+        }
+      });
+      delete formData.membersMail;
+      delete formData.users;
+      formData.createdBy = this.userData.id;
+      // formData.title = formData.meetName;
+      // delete formData.meetName;
+      console.log(formData);
+      this.apiService.createEvent(formData).subscribe(
+        (res: any) => {
+          this.dialog.open(DialogComponent, {
+            data: {
+              heading: `Room Created`,
+              message: `Room Created Successfully`,
+            },
+          });
+          this.router.navigate(['/groups']);
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
     }
-
-    delete formData.userEmails;
-
-    this.userDatas.forEach((user) => {
-      console.log(user.email);
-      console.log(formData.membersMail);
-
-      if (formData.membersMail.includes(user.email)) {
-        formData.members.push(user._id);
-      }
-    });
-    delete formData.membersMail;
-    delete formData.users;
-    formData.createdBy = this.userData.id;
-    // formData.title = formData.meetName;
-    // delete formData.meetName;
-    console.log(formData);
-    this.apiService.createEvent(formData).subscribe(
-      (res: any) => {
-        this.dialog.open(DialogComponent, {
-          data: {
-            heading: `Room Created`,
-            message: `Room Created Successfully`,
-          },
-        });
-        this.router.navigate(['/groups']);
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
   }
   get users() {
     return this.createEventForm.get('users') as FormArray;

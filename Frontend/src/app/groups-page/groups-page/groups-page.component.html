@@ -11,7 +11,9 @@
   </div>
 </div>
 
-<div class="mt-3">
+<div *ngIf="meetsData.length > 0" class="m-3">
+  <h1>Teams</h1>
+
   <mat-grid-list cols="4" rowHeight="2:1">
     <mat-grid-tile *ngFor="let meet of meetsData"
       ><div class="container">
@@ -37,56 +39,32 @@
         </mat-card>
       </div>
     </mat-grid-tile>
-    <!-- <mat-grid-tile
-      ><div class="container">
-        <mat-card class="example-card">
-          <mat-card-title-group>
-            <mat-card-title>Group Name </mat-card-title>
-            <mat-card-subtitle>Related To</mat-card-subtitle>
-            <img
-              mat-card-md-image
-              src="https://previews.123rf.com/images/konkangrua/konkangrua1904/konkangrua190400037/121359799-teamwork-raum-leute-logo-treffen-gruppe-von-sechs-personen-im-kreis-vektor-illustration.jpg?fj=1"
-            />
-          </mat-card-title-group>
-          <mat-card-content>
-            <button mat-raised-button color="primary">Chat</button>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile
-      ><div class="container">
-        <mat-card class="example-card">
-          <mat-card-title-group>
-            <mat-card-title>Group Name </mat-card-title>
-            <mat-card-subtitle>Related To</mat-card-subtitle>
-            <img
-              mat-card-md-image
-              src="https://previews.123rf.com/images/konkangrua/konkangrua1904/konkangrua190400037/121359799-teamwork-raum-leute-logo-treffen-gruppe-von-sechs-personen-im-kreis-vektor-illustration.jpg?fj=1"
-            />
-          </mat-card-title-group>
-          <mat-card-content>
-            <button mat-raised-button color="primary">Chat</button>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile
-      ><div class="container">
-        <mat-card class="example-card">
-          <mat-card-title-group>
-            <mat-card-title>Group Name </mat-card-title>
-            <mat-card-subtitle>Related To</mat-card-subtitle>
-            <img
-              mat-card-md-image
-              src="https://previews.123rf.com/images/konkangrua/konkangrua1904/konkangrua190400037/121359799-teamwork-raum-leute-logo-treffen-gruppe-von-sechs-personen-im-kreis-vektor-illustration.jpg?fj=1"
-            />
-          </mat-card-title-group>
-          <mat-card-content>
-            <button mat-raised-button color="primary">Chat</button>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </mat-grid-tile> -->
   </mat-grid-list>
+</div>
+
+<div class="m-3">
+  <h1>Favourites</h1>
+  <mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let meet of meetsData"
+      ><div class="container">
+        <mat-card>
+          <mat-card-title>User Name</mat-card-title>
+          <mat-card-subtitle>Start</mat-card-subtitle>
+          <mat-card-actions>
+            <button mat-raised-button>Chat</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- 
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/chats', 'chat']"
+    [queryParams]="{ meetId: meet._id }"
+  >
+    Chat
+  </button> -->
 </div>

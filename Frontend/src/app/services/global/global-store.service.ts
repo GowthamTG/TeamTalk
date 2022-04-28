@@ -13,6 +13,7 @@ export class GlobalStoreService {
       name: localStorage.getItem('name'),
       email: localStorage.getItem('email'),
       ownedMeets: localStorage.getItem('ownedMeets')?.split(','),
+      favourites: localStorage.getItem('favourites')?.split(','),
     };
   }
 
@@ -21,7 +22,8 @@ export class GlobalStoreService {
     token: string,
     name: string,
     email: string,
-    ownedMeets: string[]
+    ownedMeets: string[],
+    favourites: string[]
   ) {
     console.log('Setting Local');
     localStorage.setItem('id', id);
@@ -29,5 +31,6 @@ export class GlobalStoreService {
     localStorage.setItem('name', name);
     localStorage.setItem('email', email);
     localStorage.setItem('ownedMeets', ownedMeets.toString());
+    localStorage.setItem('favourites', favourites.toString());
   }
 }

@@ -39,6 +39,7 @@ export class AuthService {
     name: string;
     token: string;
     ownedMeets: string[];
+    favourites: string[];
   }) {
     const token = response.token;
     this.token = token;
@@ -50,7 +51,8 @@ export class AuthService {
         token,
         response.name,
         response.email,
-        response.ownedMeets
+        response.ownedMeets,
+        response.favourites
       );
       this.router.navigate(['/groups']);
     }
@@ -79,9 +81,17 @@ export class AuthService {
     token: string,
     name: string,
     email: string,
-    ownedMeets: string[]
+    ownedMeets: string[],
+    favourites: string[]
   ) {
-    this.GlobalService.setGlobalStore(id, token, name, email, ownedMeets);
+    this.GlobalService.setGlobalStore(
+      id,
+      token,
+      name,
+      email,
+      ownedMeets,
+      favourites
+    );
   }
 
   clearAuthData() {

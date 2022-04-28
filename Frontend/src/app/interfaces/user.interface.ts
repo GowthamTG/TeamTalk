@@ -4,4 +4,5 @@ export interface UserI {
   name: string | null;
   token: string | null;
   ownedMeets: string[] | undefined;
+  favourites: string[] | undefined;
 }

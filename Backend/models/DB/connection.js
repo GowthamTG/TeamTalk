@@ -44,6 +44,7 @@ const MeetConversationSchema = mongoose.Schema(
       type: String,
     },
     owner: { type: Schema.Types.ObjectId, ref: "users" },
+    favourites: { type: Schema.Types.Array, default: [] },
     name: {
       type: String,
       default: `Teams Meeting ${Date.now()}`,
