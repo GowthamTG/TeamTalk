@@ -46,4 +46,10 @@ router.post("/update-favourites", async (req, res) => {
     .catch((error) => next(error));
 });
 
+router.get("/change-status/:emailId/:status", (req, res,next) => {
+  usersService
+    .setStatus(req.params.emailId, req.params.status)
+    .then((response) => res.send(response))
+    .catch((error) => next(error));
+});
 module.exports = router;

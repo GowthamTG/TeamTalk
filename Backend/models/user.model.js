@@ -116,4 +116,10 @@ userModel.addFavouriteUser = (userData) => {
     .then((response) => response);
 };
 
+userModel.updateStatus = (emailId,userStatus) => {
+  return collection.getCollection(COLLECTION_NAME.USERS)
+    .then(model => model.findOneAndUpdate({email:emailId},{$set:{userStatus : userStatus}},{new:true}))
+    .then((response) =>  response);
+};
+
 module.exports = userModel;
