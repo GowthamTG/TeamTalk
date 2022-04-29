@@ -12,8 +12,14 @@ export class GlobalStoreService {
       token: localStorage.getItem('token'),
       name: localStorage.getItem('name'),
       email: localStorage.getItem('email'),
-      ownedMeets: localStorage.getItem('ownedMeets')?.split(','),
-      favourites: localStorage.getItem('favourites')?.split(','),
+      ownedMeets:
+        localStorage.getItem('ownedMeets')?.split(',') === ['']
+          ? []
+          : localStorage.getItem('ownedMeets')?.split(','),
+      favourites:
+        localStorage.getItem('favourites')?.split(',') === ['']
+          ? []
+          : localStorage.getItem('favourites')?.split(','),
     };
   }
 
@@ -31,6 +37,10 @@ export class GlobalStoreService {
     localStorage.setItem('name', name);
     localStorage.setItem('email', email);
     localStorage.setItem('ownedMeets', ownedMeets.toString());
+    localStorage.setItem('favourites', favourites.toString());
+  }
+
+  saveFavourites(favourites: string[]) {
     localStorage.setItem('favourites', favourites.toString());
   }
 }

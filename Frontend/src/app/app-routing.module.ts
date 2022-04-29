@@ -35,6 +35,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./chat-pages/chat-pages.module').then((m) => m.ChatPagesModule),
   },
+  {
+    path: 'users',
+    component: ContentLayoutComponent,
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./favourites/favourites.module').then((m) => m.FavouritesModule),
+  },
 
   { path: '**', redirectTo: 'auth/login' },
 ];

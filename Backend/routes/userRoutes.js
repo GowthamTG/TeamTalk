@@ -18,7 +18,6 @@ router.post("/create-meet", async (req, res) => {
 });
 
 router.post("/create-event", async (req, res) => {
-  console.log(req.body);
   usersService
     .createEvent(req.body)
     .then((response) => res.send(response))
@@ -40,8 +39,9 @@ router.post("/get-all-meets-data", async (req, res) => {
 });
 
 router.post("/update-favourites", async (req, res) => {
+  console.log("FAV ROUTE");
   usersService
-    .getAllMeetsWithIds(req.body)
+    .addFavouriteUser(req.body)
     .then((response) => res.send(response))
     .catch((error) => next(error));
 });

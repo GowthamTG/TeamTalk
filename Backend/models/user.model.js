@@ -108,6 +108,7 @@ userModel.getAllUserWithEmail = (email) => {
 };
 
 userModel.addFavouriteUser = (userData) => {
+  console.log("Fav" + userData);
   return collection
     .getCollection(COLLECTION_NAME.USERS)
     .then((model) =>

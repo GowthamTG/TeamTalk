@@ -45,10 +45,10 @@
 <div class="m-3">
   <h1>Favourites</h1>
   <mat-grid-list cols="4" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let meet of meetsData"
+    <mat-grid-tile *ngFor="let user of userData.favourites"
       ><div class="container">
         <mat-card>
-          <mat-card-title>User Name</mat-card-title>
+          <mat-card-title>{{ user }}</mat-card-title>
           <mat-card-subtitle>Start</mat-card-subtitle>
           <mat-card-actions>
             <button mat-raised-button>Chat</button>

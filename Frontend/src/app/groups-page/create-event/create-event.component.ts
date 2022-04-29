@@ -151,14 +151,15 @@ export class CreateEventComponent implements OnInit {
         (res: any) => {
           this.dialog.open(DialogComponent, {
             data: {
-              heading: `Room Created`,
-              message: `Room Created Successfully`,
+              heading: `Event Created`,
+              message: `Event Created Successfully`,
             },
           });
-          this.router.navigate(['/groups']);
+          this.dialogRef.close(this.userData.id);
         },
         (err: any) => {
           console.log(err);
+          this.dialogRef.close(this.userData.id);
         }
       );
     }

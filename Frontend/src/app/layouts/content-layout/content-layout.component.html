@@ -17,10 +17,10 @@
         >
       </mat-list-item>
 
-      <mat-list-item routerLink="/groups">
+      <!-- <mat-list-item routerLink="/groups">
         <mat-icon mat-list-icon>important_devices</mat-icon>
         <span *ngIf="isExpanded" class="menu-item">Info</span>
-      </mat-list-item>
+      </mat-list-item> -->
 
       <mat-list-item routerLink="/chats/create-room">
         <mat-icon mat-list-icon>person_add</mat-icon>
@@ -30,6 +30,11 @@
       <mat-list-item routerLink="/groups/schedule">
         <mat-icon mat-list-icon>calendar_month</mat-icon>
         <span *ngIf="isExpanded" class="menu-item">Add Event</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/users/user-chats">
+        <mat-icon mat-list-icon>group</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">User Chats</span>
       </mat-list-item>
 
       <mat-list-item routerLink="/auth/login" (onclick)="logout()">
