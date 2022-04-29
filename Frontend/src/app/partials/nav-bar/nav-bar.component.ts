@@ -12,21 +12,23 @@ export class NavBarComponent implements OnInit {
   inFeedRoute: boolean = false;
   isExpanded: boolean = false;
 
-  constructor(private router: ActivatedRoute, private service:ApiService) {}
+  constructor(private router: ActivatedRoute, private service: ApiService) {}
 
   ngOnInit(): void {
-    this.currentUser = localStorage.getItem('username');
+    console.log('Nav Bar');
+
+    this.currentUser = localStorage.getItem('email');
     console.log(this.router.snapshot.toString());
 
     this.inFeedRoute = this.router.snapshot.toString().includes('feed');
 
     console.log(this.currentUser);
   }
-  setStatus(status : string){
-    console.log(status)
+  setStatus(status: string) {
+    console.log(status);
     let email = String(localStorage.getItem('email'));
-    this.service.updateUserStatus(email, status).subscribe(res => {
-      console.log(res)
+    this.service.updateUserStatus(email, status).subscribe((res) => {
+      console.log(res);
     });
   }
 }
