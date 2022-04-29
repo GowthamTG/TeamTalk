@@ -26,8 +26,34 @@ const UserSchema = mongoose.Schema({
     default: [],
   },
   favourites: { type: Schema.Types.Array, default: [] },
+  userStatus: {
+    type: String,
+  },
   hash: String,
   salt: String,
+});
+const MessageSchema = mongoose.Schema({
+  conversationId: {
+    type: String,
+  },
+  sender: {
+    type: String,
+    required: true,
+  },
+  receiver: {
+    type: String,
+    required: true,
+  },
+  message: {
+    type: String,
+  },
+  option: {
+    type: String,
+  },
+  sentAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 UserSchema.methods.validPassword = (password, op, salt) => {
@@ -111,6 +137,8 @@ connection.getCollection = (collectionName) => {
           return db.model(collectionName, MeetConversationSchema);
         case COLLECTION_NAME.EVENTS:
           return db.model(collectionName, EventsSchema);
+        case COLLECTION_NAME.MESSAGES:
+          return db.model(collectionName, MessageSchema);
       }
     })
     .catch((err) => {

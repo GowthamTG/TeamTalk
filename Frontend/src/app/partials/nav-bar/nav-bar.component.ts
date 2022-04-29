@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/apis/api.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,7 +12,7 @@ export class NavBarComponent implements OnInit {
   inFeedRoute: boolean = false;
   isExpanded: boolean = false;
 
-  constructor(private router: ActivatedRoute) {}
+  constructor(private router: ActivatedRoute, private service:ApiService) {}
 
   ngOnInit(): void {
     this.currentUser = localStorage.getItem('username');
@@ -20,5 +21,12 @@ export class NavBarComponent implements OnInit {
     this.inFeedRoute = this.router.snapshot.toString().includes('feed');
 
     console.log(this.currentUser);
+  }
+  setStatus(status : string){
+    console.log(status)
+    let email = String(localStorage.getItem('email'));
+    this.service.updateUserStatus(email, status).subscribe(res => {
+      console.log(res)
+    });
   }
 }

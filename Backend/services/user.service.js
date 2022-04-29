@@ -155,4 +155,12 @@ userService.addFavouriteUser = (user) => {
   }
 };
 
+userService.setStatus = (emailId, userStatus) => {
+  return userModel.updateStatus(emailId,userStatus)
+  .then(response =>{
+      if(response) return response;
+      throw new ApiError("Status update failed", 404);
+  });
+}
+
 module.exports = userService;
