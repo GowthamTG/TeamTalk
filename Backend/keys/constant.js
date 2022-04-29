@@ -2,6 +2,7 @@ const COLLECTION_NAME = {
   USERS: "User",
   MEETCONVERSATIONS: "meetconversations",
   EVENTS: "Events",
+  MESSAGES : "Messages"
   // STATES: "states",
   // CITIES: "cities",
 

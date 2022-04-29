@@ -111,8 +111,25 @@
           </ul>
         </li>
       </ul>
-
+      
       <div class="navbar-nav ml-auto">
+        <h5 class=" p-2 mx-2">Status :</h5>
+        <div class="form-check form-check-inline py-2">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="status1" value="Available" (change)="setStatus('Available')">
+          <label class="form-check-label" for="status1">Available</label>
+        </div>
+        <div class="form-check form-check-inline py-2">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="status2" value="Away" (change)="setStatus('Away')">
+          <label class="form-check-label" for="status2">Away</label>
+        </div>
+        <div class="form-check form-check-inline py-2">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="status3" value="Busy" (change)="setStatus('Busy')">
+          <label class="form-check-label" for="status3">Busy</label>
+        </div>
+        <div class="form-check form-check-inline py-2">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="status4" value="DND" (change)="setStatus('DND')">
+          <label class="form-check-label" for="status4">DND</label>
+        </div>
         <a
           *ngIf="currentUser === '' || currentUser === null"
           type="button"

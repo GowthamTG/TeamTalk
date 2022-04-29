@@ -29,6 +29,7 @@ const SessionManager = require("./modules/UserSessionModule");
 const errorLogger = require("./utils/errorLogger");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const messageRoutes = require("./routes/messageRoutes")
 
 // ----------------------------------CORS---------------------------------------- //
 
@@ -46,6 +47,7 @@ var sessionManager = new SessionManager();
 
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
+
 
 // ------------------------Connection to Mongoose---------------------------------------- //
 
@@ -75,6 +77,7 @@ app.use("/peerjs", peerServer);
 
 app.use(authRoutes);
 app.use(userRoutes);
+app.use("/messages",messageRoutes);
 app.use(errorLogger);
 
 
