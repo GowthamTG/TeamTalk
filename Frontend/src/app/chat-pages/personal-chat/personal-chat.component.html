@@ -1,15 +1,18 @@
-<div class="container-fluid pt-3">
-      <mat-card>
+<div class="container pt-3">
+      <mat-card [style.height.px]="'500'">
         <mat-card-header>
           <mat-card-title><span style="color: rgb(24, 187, 179)">{{receiverId}} : {{receiverDetails.userStatus}}</span></mat-card-title>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
           <div class="well" style="height: 200px; padding: 15px">
-            <div *ngFor="let message of allMessages">
+            <div class="p-1" *ngFor="let message of allMessages">
               <span><strong>{{ message.sender }} : </strong> {{ message.message }}</span>
             </div>
           </div>
-          <mat-form-field>
+          
+        </mat-card-content>
+        <mat-card-actions>
+          <mat-form-field class="mx-4">
             <input
               type="text"
               matInput
@@ -18,8 +21,6 @@
               placeholder="Enter Message"
             />
           </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
           <button
             type="button"
             class="btn btn-success pull-right"
@@ -30,5 +31,5 @@
           </button>
         </mat-card-actions>
       </mat-card>
-  </div>
+</div>
   

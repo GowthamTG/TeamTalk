@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/apis/api.service';
-
+import {map, Subscription, timer} from 'rxjs';  
 @Component({
   selector: 'app-personal-chat',
   templateUrl: './personal-chat.component.html',
   styleUrls: ['./personal-chat.component.scss']
 })
-export class PersonalChatComponent implements OnInit {
+export class PersonalChatComponent implements OnInit,OnChanges {
 
   constructor(
     private router: ActivatedRoute,
-    private service: ApiService
-  ) { }
+    private service: ApiService,
 
+  ) { }
+  timerSubscription!: Subscription;
   senderId : String = String(localStorage.getItem('email'))
   message:String ='';
   option = 'Standard';
@@ -33,7 +34,18 @@ export class PersonalChatComponent implements OnInit {
       console.log(res);
       this.allMessages = res;
     })
-    
+    this.timerSubscription = timer(0, 1000).pipe( 
+      map(() => { 
+        this.service.getUserPersonalMessages(this.senderId,this.receiverId).subscribe(res=>{
+          this.allMessages = res;
+        }) // load data contains the http request 
+      }) 
+    ).subscribe(); 
+  }
+  ngOnChanges(){
+    this.service.getUserPersonalMessages(this.senderId,this.receiverId).subscribe(res=>{
+      this.allMessages = res;
+    })
   }
   sendMessage(){
     let messageDetails = {
@@ -43,10 +55,11 @@ export class PersonalChatComponent implements OnInit {
       message : this.message,
       option: this.option
     }
-    console.log(messageDetails)
+    this.message = '';
     this.service.sendMessageToUser(messageDetails).subscribe(res=>{
       console.log(res)
     })
+    this.allMessages.push(messageDetails)
   }
-
+  
 }
