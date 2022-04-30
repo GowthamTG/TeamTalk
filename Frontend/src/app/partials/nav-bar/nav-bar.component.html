@@ -32,22 +32,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/groups">Home</a>
         </li>
-
-        <li *ngIf="currentUser !== '' && currentUser !== null" class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/feed">Feed</a>
-        </li>
-        <!-- <% } %> <% if(currentUser !=="" && inFeedRoute==true){ %> -->
         <li
           *ngIf="
             currentUser !== '' && currentUser !== null && inFeedRoute == true
           "
           class="nav-item"
         >
-          <a class="nav-link active" aria-current="page" href="/feed/new"
-            >New Post</a
-          >
         </li>
         <!-- <% } %> <% if(currentUser=="" ){ %> -->
         <li
@@ -116,7 +108,7 @@
         *ngIf="currentUser !== '' && currentUser !== null"
         class="navbar-nav ml-auto"
       >
-        <h5 class="p-2 mx-2">Status :</h5>
+        <h6 class="p-2 my-1 mx-2">Status :</h6>
         <div class="form-check form-check-inline py-2">
           <input
             class="form-check-input"
@@ -194,7 +186,7 @@
           class="nav-link"
           routerLink="/logout"
           (click)="logout()"
-          style="color: black"
+          style="color: rgb(212, 54, 54)"
           ><i class="fas fa-sign-out-alt"></i> Logout</a
         >
       </div>

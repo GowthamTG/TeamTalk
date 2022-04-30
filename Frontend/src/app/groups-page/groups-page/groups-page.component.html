@@ -51,7 +51,7 @@
           <mat-card-title>{{ user }}</mat-card-title>
           <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
           <mat-card-actions>
-            <button mat-raised-button>Chat</button>
+            <button mat-raised-button (click)="chatUser(user)">Chat</button>
           </mat-card-actions>
         </mat-card>
       </div>

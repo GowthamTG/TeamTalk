@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { formatDistanceToNowStrict } from 'date-fns/esm';
 import { UserI } from 'src/app/interfaces/user.interface';
 import { ApiService } from 'src/app/services/apis/api.service';
@@ -13,7 +14,8 @@ export class GroupsPageComponent implements OnInit {
   userData!: UserI;
   constructor(
     private apiService: ApiService,
-    private globalService: GlobalStoreService
+    private globalService: GlobalStoreService,
+    private route: Router
   ) {}
 
   meetsData: any = [];
@@ -54,5 +56,9 @@ export class GroupsPageComponent implements OnInit {
 
       this.meetsData = res.response;
     });
+  }
+  chatUser(user:string){
+    console.log(user)
+    this.route.navigateByUrl(`/chats/personal-chat/${user}`)
   }
 }
