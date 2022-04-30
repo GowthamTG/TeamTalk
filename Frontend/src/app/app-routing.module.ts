@@ -37,7 +37,7 @@ const routes: Routes = [
       {
         path: 'users',
         // component: ContentLayoutComponent,
-        canActivate: [AuthGuardService],
+        canActivateChild: [AuthGuardService],
         loadChildren: () =>
           import('./favourites/favourites.module').then((m) => m.FavouritesModule),
       },

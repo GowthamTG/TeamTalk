@@ -28,7 +28,6 @@ export class GroupsPageComponent implements OnInit {
     console.log(this.userData);
     this.apiService.findByUsername('').subscribe(
       (res: any) => {
-        console.log(res);
         this.userDatas = [...res];
         for (let i = 0; i < this.userDatas.length; i++) {
           if (this.userDatas[i].email != this.userData.email) {

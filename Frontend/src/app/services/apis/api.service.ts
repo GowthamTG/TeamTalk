@@ -50,6 +50,10 @@ export class ApiService {
     return this.http.post<any[]>(`${this.url}/update-favourites`, userData);
   }
 
+  getFavourites(userId: string) {
+    return this.http.get<any>(`${this.url}/get-favourites/${userId}` );
+  }
+
   // Update user status
   updateUserStatus(emailId: string, status: string) {
     return this.http.get<any>(`${this.url}/change-status/${emailId}/${status}`);

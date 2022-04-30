@@ -29,7 +29,8 @@ export class GlobalStoreService {
     name: string,
     email: string,
     ownedMeets: string[],
-    favourites: string[]
+    favourites: string[],
+    userStatus: string
   ) {
     console.log('Setting Local');
     localStorage.setItem('id', id);
@@ -38,6 +39,7 @@ export class GlobalStoreService {
     localStorage.setItem('email', email);
     localStorage.setItem('ownedMeets', ownedMeets.toString());
     localStorage.setItem('favourites', favourites.toString());
+    localStorage.setItem('userStatus',userStatus);
   }
 
   saveFavourites(favourites: string[]) {

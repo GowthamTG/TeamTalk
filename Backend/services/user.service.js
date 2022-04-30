@@ -49,6 +49,7 @@ userService.loginUser = async (loginDetails) => {
         const id = userData._id;
         const ownedMeets = userData.ownedMeets;
         const favourites = userData.favourites;
+        const userStatus = userData.userStatus;
         const payload = {
           id: userData._id,
           ownedMeets: userData.ownedMeets,
@@ -59,7 +60,7 @@ userService.loginUser = async (loginDetails) => {
         var token = jwt.sign(payload, JWT_KEY.SECRET, {
           expiresIn: "24h",
         });
-        return { id, message, name, email, token, ownedMeets, favourites };
+        return { id, message, name, email, token, ownedMeets, favourites, userStatus };
       }
     }
   } catch (statusCd) {

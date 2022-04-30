@@ -40,6 +40,7 @@ export class AuthService {
     token: string;
     ownedMeets: string[];
     favourites: string[];
+    userStatus: string
   }) {
     const token = response.token;
     this.token = token;
@@ -52,7 +53,8 @@ export class AuthService {
         response.name,
         response.email,
         response.ownedMeets,
-        response.favourites
+        response.favourites,
+        response.userStatus
       );
       this.router.navigate(['/groups']).then(() => {
         window.location.reload();
@@ -85,7 +87,8 @@ export class AuthService {
     name: string,
     email: string,
     ownedMeets: string[],
-    favourites: string[]
+    favourites: string[],
+    userStatus: string
   ) {
     this.GlobalService.setGlobalStore(
       id,
@@ -93,7 +96,8 @@ export class AuthService {
       name,
       email,
       ownedMeets,
-      favourites
+      favourites,
+      userStatus
     );
   }
 

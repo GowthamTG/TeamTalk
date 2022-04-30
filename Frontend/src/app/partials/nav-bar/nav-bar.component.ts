@@ -11,11 +11,12 @@ export class NavBarComponent implements OnInit {
   currentUser: string | null = '';
   inFeedRoute: boolean = false;
   isExpanded: boolean = false;
+  userStatus: String ='Available';
 
   constructor(private router: ActivatedRoute, private service: ApiService, private route: Router) {}
 
   ngOnInit(): void {
-    console.log('Nav Bar');
+    this.userStatus = String(localStorage.getItem('userStatus'));
 
     this.currentUser = localStorage.getItem('email');
     console.log(this.router.snapshot.toString());
@@ -26,6 +27,7 @@ export class NavBarComponent implements OnInit {
   }
   setStatus(status: string) {
     console.log(status);
+    this.userStatus = status;
     let email = String(localStorage.getItem('email'));
     this.service.updateUserStatus(email, status).subscribe((res) => {
       console.log(res);

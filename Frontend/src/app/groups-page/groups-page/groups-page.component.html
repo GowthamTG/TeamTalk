@@ -11,16 +11,16 @@
   </div>
 </div>
 
-<div *ngIf="meetsData.length > 0" class="m-3">
-  <h1>Teams</h1>
+<div *ngIf="meetsData.length > 0" class="m-4">
+  <h2>Teams</h2>
 
-  <mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-list cols="4" rowHeight="1.5:1">
     <mat-grid-tile *ngFor="let meet of meetsData"
       ><div class="container">
         <mat-card class="example-card">
           <mat-card-title-group>
             <mat-card-title>{{ meet.name }}</mat-card-title>
-            <mat-card-subtitle>{{ meet.members.toString() }}</mat-card-subtitle>
+            <!-- <mat-card-subtitle>{{ meet.members.toString() }}</mat-card-subtitle> -->
             <img
               mat-card-md-image
               src="https://previews.123rf.com/images/konkangrua/konkangrua1904/konkangrua190400037/121359799-teamwork-raum-leute-logo-treffen-gruppe-von-sechs-personen-im-kreis-vektor-illustration.jpg?fj=1"
@@ -42,12 +42,12 @@
   </mat-grid-list>
 </div>
 
-<div class="m-3">
-  <h1>Favourites</h1>
-  <mat-grid-list cols="4" rowHeight="2:1">
+<div class="m-4">
+  <h2>Favourites</h2>
+  <mat-grid-list cols="3" rowHeight="4:1">
     <mat-grid-tile *ngFor="let user of userData.favourites"
       ><div class="container">
-        <mat-card>
+        <mat-card *ngIf="user">
           <mat-card-title>{{ user }}</mat-card-title>
           <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
           <mat-card-actions>
