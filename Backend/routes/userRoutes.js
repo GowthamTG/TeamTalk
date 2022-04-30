@@ -52,4 +52,12 @@ router.get("/change-status/:emailId/:status", (req, res,next) => {
     .then((response) => res.send(response))
     .catch((error) => next(error));
 });
+
+router.get("/get-user-details/:emailId", (req,res,next)=>{
+  usersService
+  .getUserDetails(req.params.emailId)
+  .then((response)=>res.send(response))
+  .catch((error)=>next(error));
+
+})
 module.exports = router;

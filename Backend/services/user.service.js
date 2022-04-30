@@ -164,4 +164,12 @@ userService.setStatus = (emailId, userStatus) => {
   });
 }
 
+userService.getUserDetails = (emailId) => {
+  return userModel.getUserDetails(emailId)
+  .then(response =>{
+      if(response) return response;
+      throw new ApiError("Status update failed", 404);
+  });
+}
+
 module.exports = userService;

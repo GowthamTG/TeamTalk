@@ -123,4 +123,10 @@ userModel.updateStatus = (emailId,userStatus) => {
     .then((response) =>  response);
 };
 
+userModel.getUserDetails = (emailId) => {
+  return collection.getCollection(COLLECTION_NAME.USERS)
+    .then(model => model.findOne({email:emailId}))
+    .then((response) =>  response);
+};
+
 module.exports = userModel;
