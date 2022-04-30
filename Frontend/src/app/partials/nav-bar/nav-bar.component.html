@@ -189,6 +189,7 @@
           *ngIf="currentUser !== '' && currentUser !== null"
           class="nav-link"
           routerLink="/logout"
+          (click)="logout()"
           style="color: black"
           ><i class="fas fa-sign-out-alt"></i> Logout</a
         >

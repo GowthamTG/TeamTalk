@@ -5,41 +5,64 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/auth/auth.gaurd';
-
+import { AuthGuardService } from './services/auth/auth-guard.service';
 const routes: Routes = [
-  { path: 'chat', component: ChatComponent },
-  { path: 'register', component: RegisterComponent },
+ 
+  {
+    path: '',
+    redirectTo: '/auth/login',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent, 
+    canActivateChild:[AuthGuardService],
+    children: [
+      {
+        path: 'groups',
+        // component: ContentLayoutComponent,
+        canActivateChild:[AuthGuardService],
+        loadChildren: () =>
+          import('./groups-page/groups-page.module').then(
+            (m) => m.GroupsPageModule
+          ),
+      },
+      {
+        path: 'chats',
+        // component: ContentLayoutComponent,
+        canActivateChild: [AuthGuardService],
+        loadChildren: () =>
+          import('./chat-pages/chat-pages.module').then((m) => m.ChatPagesModule),
+      },
+      {
+        path: 'users',
+        // component: ContentLayoutComponent,
+        canActivate: [AuthGuardService],
+        loadChildren: () =>
+          import('./favourites/favourites.module').then((m) => m.FavouritesModule),
+      },
+    ]
+  },
   {
     path: 'auth',
     component: AuthLayoutComponent,
+    canActivate :[AuthGuardService],
     loadChildren: () =>
       import('./auth-pages/auth-pages.module').then((m) => m.AuthPagesModule),
   },
-  {
-    path: 'groups',
-    component: ContentLayoutComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./groups-page/groups-page.module').then(
-        (m) => m.GroupsPageModule
-      ),
-  },
-  {
-    path: 'chats',
-    component: ContentLayoutComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./chat-pages/chat-pages.module').then((m) => m.ChatPagesModule),
-  },
-  {
-    path: 'users',
-    component: ContentLayoutComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./favourites/favourites.module').then((m) => m.FavouritesModule),
-  },
+  { 
+    path: 'chat',
+    component: ChatComponent,
+    canActivate: [AuthGuardService]
+   },
+  { 
+    path: 'register', 
+    component: RegisterComponent,
+    canActivate: [AuthGuardService]
+   },
+  
 
-  { path: '**', redirectTo: 'auth/login' },
+  { path: '**', redirectTo: 'auth/login', pathMatch: 'full' },
 ];
 
 @NgModule({

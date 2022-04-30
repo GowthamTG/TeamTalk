@@ -54,7 +54,9 @@ export class AuthService {
         response.ownedMeets,
         response.favourites
       );
-      this.router.navigate(['/groups']);
+      this.router.navigate(['/groups']).then(() => {
+        window.location.reload();
+      });
     }
   }
 
@@ -73,6 +75,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.clearAuthData();
+    localStorage.clear();
     this.router.navigate(['/auth', 'login']);
   }
 

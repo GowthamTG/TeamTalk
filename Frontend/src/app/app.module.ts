@@ -36,6 +36,8 @@ import { ChatComponent } from './chat/chat.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
+import { AuthGuardService } from './services/auth/auth-guard.service';
+
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
@@ -75,6 +77,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AuthGuardService
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/apis/api.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class NavBarComponent implements OnInit {
   inFeedRoute: boolean = false;
   isExpanded: boolean = false;
 
-  constructor(private router: ActivatedRoute, private service: ApiService) {}
+  constructor(private router: ActivatedRoute, private service: ApiService, private route: Router) {}
 
   ngOnInit(): void {
     console.log('Nav Bar');
@@ -31,4 +31,10 @@ export class NavBarComponent implements OnInit {
       console.log(res);
     });
   }
+  logout(){
+    localStorage.clear();
+    this.route.navigate(['/auth', 'login']).then(() => {
+      window.location.reload();
+    });
+    }
 }
