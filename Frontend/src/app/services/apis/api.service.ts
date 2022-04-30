@@ -58,4 +58,15 @@ export class ApiService {
   updateUserStatus(emailId: string, status: string) {
     return this.http.get<any>(`${this.url}/change-status/${emailId}/${status}`);
   }
+
+  getUserPersonalMessages(senderId:String, recieverId:String){
+    return this.http.get<any>(`${this.url}/messages/get-messages/${senderId}/${recieverId}`);
+  }
+
+  sendMessageToUser(messageDetails:any){
+    return this.http.post<any>(`${this.url}/messages/add-message`,messageDetails);
+  }
+  getUserDetails(email : String){
+    return this.http.get<any>(`${this.url}/get-user-details/${email}`);
+  }
 }
