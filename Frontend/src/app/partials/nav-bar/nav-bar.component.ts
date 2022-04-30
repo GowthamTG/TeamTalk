@@ -11,7 +11,7 @@ export class NavBarComponent implements OnInit {
   currentUser: string | null = '';
   inFeedRoute: boolean = false;
   isExpanded: boolean = false;
-  userStatus: String ='Available';
+  userStatus: String ='';
 
   constructor(private router: ActivatedRoute, private service: ApiService, private route: Router) {}
 
@@ -29,6 +29,7 @@ export class NavBarComponent implements OnInit {
     console.log(status);
     this.userStatus = status;
     let email = String(localStorage.getItem('email'));
+    localStorage.setItem('userStatus', status);
     this.service.updateUserStatus(email, status).subscribe((res) => {
       console.log(res);
     });
