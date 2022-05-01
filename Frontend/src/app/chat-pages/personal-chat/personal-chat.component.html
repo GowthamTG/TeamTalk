@@ -1,7 +1,15 @@
 <div class="container pt-3">
       <mat-card [style.height.px]="'550'" class="mx-3">
         <mat-card-header>
-          <mat-card-title><span style="color: rgb(24, 187, 179)">{{receiverId}} : {{receiverDetails.userStatus}}</span></mat-card-title>
+          <mat-card-title><span 
+            [ngClass]="{
+              'text-success':receiverDetails.userStatus=='Available',
+              'text-warning':receiverDetails.userStatus=='Away',
+              'text-secondary':receiverDetails.userStatus=='Busy',
+              'text-danger':receiverDetails.userStatus=='DND'}" >
+              {{receiverId}} : {{receiverDetails.userStatus}}
+            </span>
+          </mat-card-title>
           <mat-slide-toggle color="primary" (change)="muteChat($event)"  class="mx-4">Mute</mat-slide-toggle>
         </mat-card-header>
         <mat-card-content [style.overflow]="'auto'" [style.height.px]="'350'">
