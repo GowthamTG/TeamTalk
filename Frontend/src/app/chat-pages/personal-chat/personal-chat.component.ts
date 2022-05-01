@@ -15,6 +15,8 @@ export class PersonalChatComponent implements OnInit,OnChanges {
 
   ) { }
   timerSubscription!: Subscription;
+  isMuted: boolean = false;
+
   senderId : String = String(localStorage.getItem('email'))
   message:String ='';
   option = 'Standard';
@@ -36,9 +38,15 @@ export class PersonalChatComponent implements OnInit,OnChanges {
     })
     this.timerSubscription = timer(0, 1000).pipe( 
       map(() => { 
-        this.service.getUserPersonalMessages(this.senderId,this.receiverId).subscribe(res=>{
-          this.allMessages = res;
-        }) // load data contains the http request 
+        if(this.isMuted){
+          return;
+        }
+        if(this.isMuted==false){
+          // API call fetch messages every 1 second
+          this.service.getUserPersonalMessages(this.senderId,this.receiverId).subscribe(res=>{
+            this.allMessages = res;
+          })
+        }
       }) 
     ).subscribe(); 
   }
@@ -60,6 +68,25 @@ export class PersonalChatComponent implements OnInit,OnChanges {
       console.log(res)
     })
     this.allMessages.push(messageDetails)
+  }
+
+  changeMessageType(event:any){
+    if(event.checked){
+      this.option = 'Important';
+    }
+    else{
+      this.option = 'Standard';
+    }
+  }
+
+  muteChat(event:any){
+    if(event.checked){
+      this.isMuted = true;
+    }
+    else{
+      this.isMuted = false;
+    }
+    console.log(this.isMuted)
   }
   
 }

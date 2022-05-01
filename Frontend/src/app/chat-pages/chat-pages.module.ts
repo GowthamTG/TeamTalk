@@ -24,7 +24,7 @@ import { JoinMeetChatComponent } from './join-meet-chat/join-meet-chat.component
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PersonalChatComponent } from './personal-chat/personal-chat.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     ChatPageComponent,
@@ -50,7 +50,8 @@ import { PersonalChatComponent } from './personal-chat/personal-chat.component';
     MatChipsModule,
     MatSelectModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatSlideToggleModule
   ],
 })
 export class ChatPagesModule {}
