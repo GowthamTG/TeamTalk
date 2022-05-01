@@ -19,7 +19,7 @@
           <mat-card-title>{{ user.name }}</mat-card-title>
           <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
           <mat-card-actions>
-            <button color="mr-5" mat-raised-button>Chat</button>
+            <button color="mr-5" mat-raised-button (click)="chatUser(user.email)">Chat</button>
 
             <button
               mat-icon-button

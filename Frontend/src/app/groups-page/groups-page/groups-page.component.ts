@@ -58,7 +58,6 @@ export class GroupsPageComponent implements OnInit {
     });
   }
   chatUser(user:string){
-    console.log(user)
     this.route.navigateByUrl(`/chats/personal-chat/${user}`)
   }
 }

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { isThisQuarter } from 'date-fns';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { UserI } from 'src/app/interfaces/user.interface';
@@ -19,7 +20,8 @@ export class ManageFavouritesComponent implements OnInit {
     private apiService: ApiService,
     private globalService: GlobalStoreService,
     private cd: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -84,5 +86,8 @@ export class ManageFavouritesComponent implements OnInit {
           },
         });
       });
+  }
+  chatUser(user:string){
+    this.route.navigateByUrl(`/chats/personal-chat/${user}`)
   }
 }
